@@ -16,22 +16,22 @@ function lanzar_dado() {
     var resultado_dado = Math.floor(Math.random() * 6) + 1;
     //var resultado_dado = 1;
     if (resultado_dado === 1) {
-        $(".jugar").css("background-image", "url(img/1.jpg)");
+        $(".jugar").css("background-image", "url(img/01.png)");
     }
     if (resultado_dado === 2) {
-        $(".jugar").css("background-image", "url(img/2.jpg)");
+        $(".jugar").css("background-image", "url(img/02.png)");
     }
     if (resultado_dado === 3) {
-        $(".jugar").css("background-image", "url(img/3.jpg)");
+        $(".jugar").css("background-image", "url(img/03.png)");
     }
     if (resultado_dado === 4) {
-        $(".jugar").css("background-image", "url(img/4.jpg)");
+        $(".jugar").css("background-image", "url(img/04.png)");
     }
     if (resultado_dado === 5) {
-        $(".jugar").css("background-image", "url(img/5.jpg)");
+        $(".jugar").css("background-image", "url(img/05.png)");
     }
     if (resultado_dado === 6) {
-        $(".jugar").css("background-image", "url(img/6.jpg)");
+        $(".jugar").css("background-image", "url(img/06.png)");
     }
     return resultado_dado;
 }
@@ -39,20 +39,21 @@ function lanzar_dado() {
 function avanzar() {
     if (acumulador_valor_dados >= 22) {
         $(".jugar").css("background-image", "url()");
-        $(".msg").text('¡Felicidades culminaste el juego!');
+        $(".cara").attr('src', 'img/HAPPY.png');
         clearTimeout();
     } else {
         valor_dado = lanzar_dado();
         if (salida_juego === true) {
             for (var i = 0, max = valor_dado; i < max; i++) {
                 acumulador_valor_dados++;
+                $(".cara").attr('src', 'img/HAPPY.png');
                 if (acumulador_valor_dados <= 7) {
                     total_avance_arriba = paso_ancho - 14.5;
                     posicion_ficha_arriba += total_avance_arriba;
                     $(".area_ficha").css("left", posicion_ficha_arriba);
                     setTimeout(function () {
                         $(".jugar").css("background-image", "url(img/dice.gif)");
-                        $(".msg").text("");
+                        $(".cara").attr('src', '');
                     }, 1600);
                 } else if (acumulador_valor_dados >= 8 && acumulador_valor_dados <= 11) {
                     total_avance_derecha = paso_alto - 14.5;
@@ -60,7 +61,7 @@ function avanzar() {
                     $(".area_ficha").css("top", posicion_ficha_derecha);
                     setTimeout(function () {
                         $(".jugar").css("background-image", "url(img/dice.gif)");
-                        $(".msg").text("");
+                        $(".cara").attr('src', '');
                     }, 1600);
                 } else if (acumulador_valor_dados >= 12 && acumulador_valor_dados <= 18) {
                     total_avance_abajo = paso_ancho - 14.5;
@@ -69,7 +70,7 @@ function avanzar() {
                     $(".area_ficha").css("right", posicion_ficha_abajo);
                     setTimeout(function () {
                         $(".jugar").css("background-image", "url(img/dice.gif)");
-                        $(".msg").text("");
+                        $(".cara").attr('src', '');
                     }, 1600);
                 } else if (acumulador_valor_dados >= 19 && acumulador_valor_dados <= 22) {
                     total_avance_izquierda = paso_alto - 14.5;
@@ -78,29 +79,29 @@ function avanzar() {
                     $(".area_ficha").css("bottom", posicion_ficha_izquierda);
                     if (acumulador_valor_dados >= 22) {
                         $(".jugar").css("background-image", "url()");
-                        $(".msg").text('¡Felicidades culminaste el juego!');
+                        $(".cara").attr('src', 'img/HAPPY.png');
                         clearTimeout();
                     } else {
                         setTimeout(function () {
                             $(".jugar").css("background-image", "url(img/dice.gif)");
-                            $(".msg").text("");
+                            $(".cara").attr('src', '');
                         }, 1000);
                     }
                 }
             }
         } else {
             if (valor_dado === 6) {
-                $(".msg").text('¡Bien, sacaste 6, lanza de nuevo para avanzar tu ficha!');
+                $(".cara").attr('src', 'img/HAPPY.png');
                 salida_juego = true;
                 setTimeout(function () {
                     $(".jugar").css("background-image", "url(img/dice.gif)");
-                    $(".msg").text("");
+                    $(".cara").attr('src', '');
                 }, 1600);
             } else {
-                $(".msg").text('¡Salió ' + valor_dado + ', reinta y saca 6 para iniciar la partida!');
+                $(".cara").attr('src', 'img/SAD.png');
                 setTimeout(function () {
                     $(".jugar").css("background-image", "url(img/dice.gif)");
-                    $(".msg").text("");
+                    $(".cara").attr('src', '');
                 }, 1600);
             }
         }

@@ -25,9 +25,18 @@
             </tr>
             <tr>
                 <td class="crema"><div><span>21</span></div></td>
-                <td colspan="6" rowspan="3">                    
-                    <div class="jugar" onclick="avanzar()"></div>
-                    <div class="msg"></div>
+                <td colspan="6" rowspan="3">
+                    <div class="fd_centro">    
+                        <div style="text-align: right">
+                            <img src="img/Kuzco.png" style="margin-top: 40%; margin-right: 3%" width="60%"/>
+                        </div>
+                        <div style="text-align: center">
+                            <div class="jugar" onclick="avanzar()"></div>
+                        </div>
+                        <div style="text-align: left">
+                            <img src="" class="cara" style="margin-top: 80%; margin-left: 8%" width="50%"/>
+                        </div>
+                    </div>
                 </td>
                 <td class="crema"><div><span>8</span></div></td>
             </tr>
