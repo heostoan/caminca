@@ -35,10 +35,10 @@ body{
 }
 .ficha{
     border-radius: 50px;
-    background: green;
+    /*background: green;*/
     width: 75px;
     height: 75px;
-    border: 5px solid purple;
+    /*border: 5px solid purple;*/
     display: inline-block;
     position: absolute;
     left: 50%;
@@ -89,10 +89,10 @@ td div span{
     background-image: url(img/dice.gif);
     background-size: 100% auto;
     background-repeat: no-repeat;
-    margin-top: 60%
+    margin-top: 61%
 }
 .efecto{
-    transition-duration:300ms;
+    transition-duration:450ms;
     transition-property:all;
     transition-timing-function:cubic-bezier(.7,1,.7,1)
 }
@@ -105,6 +105,7 @@ table{
     width: 1095px;
     height: 690px
 }
+
 .ladrillo{
     background: #DD5603;
 }
@@ -119,6 +120,38 @@ table{
 }
 .naranja{
     background: #E8800C;
+}
+
+.ladrillo_i{
+    background: #DD5603;
+}
+.petroleo_i{
+    background: #C1BB93;
+}
+.mostasa_i{
+    background: #F0AC01;
+}
+.crema_i{
+    background: #ABB400;
+}
+.naranja_i{
+    background: #E8800C;
+}
+
+.ladrillo_a{
+    background: #ABB400;
+}
+.petroleo_a{
+    background: #F0AC01;
+}
+.mostasa_a{
+    background: #C1BB93;
+}
+.crema_a{
+    background: #E8800C;
+}
+.naranja_a{
+    background: #DD5603;
 }
 .msg{
     width: 100%;
