@@ -2,7 +2,7 @@
 session_start();
 session_unset();
 session_destroy();
-include 'negocio/ClsUsuario.php';
+include '../negocio/ClsUsuario.php';
 
 $objUsuario = new ClsUsuario();
 
@@ -14,7 +14,7 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
     $login = $_POST['usuario'];
     $clave = $_POST['clave'];
     $persona = array($_POST['usuario'], $_POST['clave']);
-    $Resultado = $objUsuario->Get_Usuario_By_Play($persona);
+    $Resultado = $objUsuario->Get_Usuario_By_Clave_Admin($persona);
     foreach ($Resultado as $key => $value) {
         if ($value['logeo'] == 1) {
             session_start();
@@ -22,7 +22,7 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
             $msj = "<div class='alert alert-success' style='margin-top:20px;'>
                                 Usuario autenticado. Espere...
                             </div>";
-            header("refresh:0;url=juega.php");
+            header("refresh:0;url=principal.php");
         } else {
             $msj = "<div class='alert alert-danger' style='margin-top:20px;'>
                                 Usario o Clave incorrecta
@@ -39,19 +39,19 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="../favicon.ico" />
 
-        <title>Entra y juega</title>
+        <title>Admministrador juego</title>
 
         <!-- Bootstrap Core CSS -->
-        <link href="admin/css/bootstrap.css" rel="stylesheet">
+        <link href="css/bootstrap.css" rel="stylesheet">
 
         <!-- MetisMenu CSS -->
-        <link href="admin/css/metisMenu.min.css" rel="stylesheet">
+        <link href="css/metisMenu.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="admin/css/startmin.css" rel="stylesheet">
+        <link href="css/startmin.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
-        <link href="admin/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,7 +66,7 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
                 <div class="col-md-4 col-md-offset-4">
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading text-center">
-                            <h1 class="panel-title">Bienvenido, ingresa y juega</h1>
+                            <h1 class="panel-title">Bienvenido</h1>
                         </div>
                         <div class="panel-body">
                             <form role="form" method="post" action="index.php">
@@ -89,5 +89,18 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
                 </div>
             </div>
         </div>
+
+        <!-- jQuery -->
+        <script src="js/jquery.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="js/metisMenu.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="js/startmin.js"></script>
+
     </body>
 </html>
