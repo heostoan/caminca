@@ -45,7 +45,7 @@ usuario
     }
 
     function Set_Estatus() {
-        $this->query = "insert into estatus(id_usuario,nivel,puntaje) values ((select max(idusuario) from usuario),1,0)";
+        $this->query = "insert into estatus(id_usuario,nivel,puntaje) values ((select max(idusuario) from usuario),1,100)";
         $this->execute_single_query();
         return json_encode('Registro realizado correctamente');
     }
