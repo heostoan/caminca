@@ -58,10 +58,20 @@ function jugar() {
                     if (result.isConfirmed) {
                         var rpta = result.value;
                         if (respuesta_correta === rpta) {
+                            puntos_totales = puntos_totales + 50;
                             Swal.fire({
                                 icon: 'success',
                                 title: '¡May Bien!',
                                 text: 'Respondiste correctamente la pregunta'
+                            }).then((result) => {
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'info',
+                                    title: 'Aviso',
+                                    text: 'Ganaste 50 puntos y ya cuentas con ' + puntos_totales + ' puntos.',
+                                    showConfirmButton: false,
+                                    timer: 1800
+                                })
                             });
                             for (var i = 0, max = valor_dado; i < max; i++) {
                                 acumulador_valor_dados++;
@@ -110,19 +120,29 @@ function jugar() {
                                 }
                             }
                         } else {
+                            puntos_totales = puntos_totales - 20;
                             Swal.fire({
                                 icon: 'error',
                                 title: '¡Ay!',
                                 text: 'No respondiste correctamente la pregunta'
-                            })
+                            }).then((result) => {
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'info',
+                                    title: 'Aviso',
+                                    text: 'Perdiste 20 puntos, ahora tiene ' + puntos_totales + ' puntos.',
+                                    showConfirmButton: false,
+                                    timer: 1800
+                                })
+                            });
                         }
                     }
                 })
                 break;
+
             }
         }
-    }
-    )
+    })
 }
 
 $(document).ready(function () {
