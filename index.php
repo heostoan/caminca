@@ -18,6 +18,19 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
     foreach ($Resultado as $key => $value) {
         if ($value['logeo'] == 1) {
             session_start();
+            $personaId = $value['idusuario'];
+            $ResultadoEstatus = $objUsuario->Get_Estatus_By_Usuario($personaId);
+            foreach ($ResultadoEstatus as $valueEstatus) {
+                $_SESSION['idusuario'] = $valueEstatus['id_usuario'];
+                $_SESSION['nivel'] = $valueEstatus['nivel'];
+                $_SESSION['puntaje'] = $valueEstatus['puntaje'];
+                $_SESSION['tiempo_nivel1'] = $valueEstatus['tiempo_nivel1'];
+                $_SESSION['tiempo_nivel2'] = $valueEstatus['tiempo_nivel2'];
+                $_SESSION['tiempo_nivel3'] = $valueEstatus['tiempo_nivel3'];
+                $_SESSION['repeticion_nivel1'] = $valueEstatus['repeticion_nivel1'];
+                $_SESSION['repeticion_nivel2'] = $valueEstatus['repeticion_nivel2'];
+                $_SESSION['repeticion_nivel3'] = $valueEstatus['repeticion_nivel3'];
+            }
             $_SESSION['usuario_logeado'] = $value['usuario'];
             $msj = "<div class='alert alert-success' style='margin-top:20px;'>
                                 Usuario autenticado. Espere...

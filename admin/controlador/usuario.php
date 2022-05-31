@@ -23,6 +23,42 @@ if ($cAccion == 'registrarUsuario') {
         echo $e;
     }
 }
+
+if ($cAccion == 'ActualizarPuntos') {
+    try {
+        $usuario = array($_POST['puntos_totales'], $_POST['id_usuario']);
+        $Resultado = $objUsuario->Upd_Puntaje($usuario);
+        $objUsuario->beginTransaction();
+        echo $Resultado;
+    } catch (Exception $e) {
+        $objUsuario->rollback();
+        echo $e;
+    }
+}
+
+if ($cAccion == 'ActualizarTiempoNivel1') {
+    try {
+        $usuario = array($_POST['tiempo'], $_POST['id_usuario']);
+        $Resultado = $objUsuario->Upd_Tiempo_Nivel1($usuario);
+        $objUsuario->beginTransaction();
+        echo $Resultado;
+    } catch (Exception $e) {
+        $objUsuario->rollback();
+        echo $e;
+    }
+}
+
+if ($cAccion == 'RepeticionNivel1') {
+    try {
+        $usuario = array($_POST['id_usuario']);
+        $Resultado = $objUsuario->Upd_Repeticion_Nivel1($usuario);
+        $objUsuario->beginTransaction();
+        echo $Resultado;
+    } catch (Exception $e) {
+        $objUsuario->rollback();
+        echo $e;
+    }
+}
 /*
   if ($cAccion == 'editarProducto') {
   try {

@@ -50,4 +50,59 @@ usuario
         return json_encode('Registro realizado correctamente');
     }
 
+    function Get_Estatus_By_Usuario($persona) {
+        $this->query = "SELECT * FROM estatus WHERE id_usuario='$persona';";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Upd_Nivel($usuario) {
+        $this->query = "update estatus set nivel='$usuario[0]' where id_usuario='$usuario[1]'";
+        $this->execute_single_query();
+        return json_encode('Actualización del nivel satisfactorio');
+    }
+
+    function Upd_Puntaje($usuario) {
+        $this->query = "update estatus set puntaje='$usuario[0]' where id_usuario='$usuario[1]'";
+        $this->execute_single_query();
+        return json_encode('Actualización del puntaje satisfactorio');
+    }
+
+    function Upd_Tiempo_Nivel1($usuario) {
+        $this->query = "update estatus set tiempo_nivel1='$usuario[0]' where id_usuario='$usuario[1]'";
+        $this->execute_single_query();
+        return json_encode('Actualización del tiempo nivel 1 satisfactorio');
+    }
+
+    function Upd_Tiempo_Nivel2($usuario) {
+        $this->query = "update estatus set tiempo_nivel2='$usuario[0]' where id_usuario='$usuario[1]'";
+        $this->execute_single_query();
+        return json_encode('Actualización del tiempo nivel 2 satisfactorio');
+    }
+
+    function Upd_Tiempo_Nivel3($usuario) {
+        $this->query = "update estatus set tiempo_nivel3='$usuario[0]' where id_usuario='$usuario[1]'";
+        $this->execute_single_query();
+        return json_encode('Actualización del tiempo nivel 3 satisfactorio');
+    }
+
+    function Upd_Repeticion_Nivel1($usuario) {
+        $this->query = "update estatus set repeticion_nivel1=repeticion_nivel1+1 where id_usuario='$usuario[0]'";
+        $this->execute_single_query();
+        return json_encode('Actualización del tiempo nivel 1 satisfactorio');
+    }
+
+    function Upd_Repeticion_Nivel2($usuario) {
+        $this->query = "update estatus set repeticion_nivel2=repeticion_nivel2+1 where id_usuario='$usuario[0]'";
+        $this->execute_single_query();
+        return json_encode('Actualización del tiempo nivel 2 satisfactorio');
+    }
+
+    function Upd_Repeticion_Nivel3($usuario) {
+        $this->query = "update estatus set repeticion_nivel3=repeticion_nivel3+1 where id_usuario='$usuario[0]'";
+        $this->execute_single_query();
+        return json_encode('Actualización del tiempo nivel 3 satisfactorio');
+    }
+
 }

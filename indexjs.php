@@ -1,6 +1,10 @@
-var puntos_totales = 100;
+<?php
+header("Content-type: text/javascript");
+session_start();
+?>
+var puntos_totales = <?php echo $_SESSION['puntaje']; ?>;
 var posicion_ficha = 0;
-var nivel = 1;
+var nivel = <?php echo $_SESSION['nivel']; ?>;
 var valor_dado = 2;
 var paso_ancho = $(".paso").outerWidth();
 var paso_alto = $(".paso").outerHeight();
@@ -13,6 +17,7 @@ var nivel_basico = true;
 var nivel_intermedio = false;
 var nivel_avanzado = false;
 var data = [];
+var totalSeconds = 0;
 
 function readTextFile(file, callback) {
     var rawFile = new XMLHttpRequest();
@@ -71,7 +76,14 @@ function jugar() {
                                     text: 'Ganaste 50 puntos y ya cuentas con ' + puntos_totales + ' puntos.',
                                     showConfirmButton: false,
                                     timer: 1800
-                                })
+                                });
+                                jQuery.ajax({
+                                    url: 'admin/controlador/usuario.php',
+                                    data: 'puntos_totales=' + puntos_totales + '&id_usuario=' + <?php echo $_SESSION['idusuario']; ?> + '&accion=ActualizarPuntos',
+                                    cache: false,
+                                    dataType: 'html',
+                                    type: "POST"
+                                });
                             });
                             for (var i = 0, max = valor_dado; i < max; i++) {
                                 acumulador_valor_dados++;
@@ -134,6 +146,13 @@ function jugar() {
                                     showConfirmButton: false,
                                     timer: 1800
                                 })
+                                jQuery.ajax({
+                                    url: 'admin/controlador/usuario.php',
+                                    data: 'puntos_totales=' + puntos_totales + '&id_usuario=' + <?php echo $_SESSION['idusuario']; ?> + '&accion=ActualizarPuntos',
+                                    cache: false,
+                                    dataType: 'html',
+                                    type: "POST"
+                                });
                             });
                         }
                     }
@@ -145,10 +164,61 @@ function jugar() {
     })
 }
 
+function salir() {
+    Swal.fire({
+      title: 'Advertencia',
+      text: "¿Estás seguro que deseas abandonar la partida?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'No',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        jQuery.ajax({
+            url: 'admin/controlador/usuario.php',
+            data: 'id_usuario=' + <?php echo $_SESSION['idusuario']; ?> + '&accion=RepeticionNivel1',
+            cache: false,
+            dataType: 'html',
+            type: "POST",
+            success: function (datos) {
+                location.href = "index.php";
+            }
+        });
+      }
+    })
+}
+
+function countTimer() {
+    ++totalSeconds;
+    localStorage.setItem("totalSeconds", totalSeconds);
+    var hour = Math.floor(totalSeconds / 3600);
+    var minute = Math.floor((totalSeconds - hour * 3600) / 60);
+    var seconds = totalSeconds - (hour * 3600 + minute * 60);
+    if (hour < 10)
+        hour = "0" + hour;
+    if (minute < 10)
+        minute = "0" + minute;
+    if (seconds < 10)
+        seconds = "0" + seconds;
+    var tiempo = hour + ":" + minute + ":" + seconds;
+    jQuery.ajax({
+        url: 'admin/controlador/usuario.php',
+        data: 'tiempo=' + tiempo + '&id_usuario=' + <?php echo $_SESSION['idusuario']; ?> + '&accion=ActualizarTiempoNivel1',
+        cache: false,
+        dataType: 'html',
+        type: "POST"
+    });
+}
+
 $(document).ready(function () {
     Swal.fire({
         title: 'Bienvenido',
-        text: '¡Usted cuenta con 100 puntos!',
+        text: '¡Usted cuenta con '+ puntos_totales +' puntos!',
         confirmButtonText: 'Entendido'
     });
+    setInterval(function () {
+        countTimer()
+    }, 1000);
 });

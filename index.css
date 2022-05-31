@@ -158,3 +158,29 @@ table{
     width: 100%;
     font-size: 20px;
 }
+.btn_jugar{
+    border-radius: 50%;
+    background: blue;
+    color: white;
+    border: 2px solid white;
+    text-align: center;
+    font-size: 30px;
+    padding: 20px 20px;
+    cursor: pointer;
+}
+.salir_juego{
+    background: red;
+    color: white;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+.cuadro_merito{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background: white;
+    padding: 10px 10px;
+}
