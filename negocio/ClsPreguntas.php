@@ -8,6 +8,7 @@ class ClsPreguntas extends ClsConexion {
     function Get_Preguntas() {
         $this->query = "SELECT
 preguntas.id,
+preguntas.id_alt,
 preguntas.pregunta,
 preguntas.alternativa_1,
 preguntas.alternativa_2,

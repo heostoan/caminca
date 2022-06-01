@@ -30,6 +30,11 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
                 $_SESSION['repeticion_nivel1'] = $valueEstatus['repeticion_nivel1'];
                 $_SESSION['repeticion_nivel2'] = $valueEstatus['repeticion_nivel2'];
                 $_SESSION['repeticion_nivel3'] = $valueEstatus['repeticion_nivel3'];
+                $_SESSION['posicion_ficha_abajo'] = $valueEstatus['posicion_ficha_abajo'];
+                $_SESSION['posicion_ficha_arriba'] = $valueEstatus['posicion_ficha_arriba'];
+                $_SESSION['posicion_ficha_derecha'] = $valueEstatus['posicion_ficha_derecha'];
+                $_SESSION['posicion_ficha_izquierda'] = $valueEstatus['posicion_ficha_izquierda'];
+                $_SESSION['acumulador_ficha'] = $valueEstatus['acumulador_ficha'];
             }
             $_SESSION['usuario_logeado'] = $value['usuario'];
             $msj = "<div class='alert alert-success' style='margin-top:20px;'>

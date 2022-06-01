@@ -16,6 +16,14 @@ if (!isset($_SESSION['usuario_logeado'])) {
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         </head>
         <body>
+            <input type="hidden" class="idusuario" value="<?php echo $_SESSION['idusuario']; ?>"/>
+            <input type="hidden" class="puntaje" value="<?php echo $_SESSION['puntaje']; ?>"/>
+            <input type="hidden" class="nivel" value="<?php echo $_SESSION['nivel']; ?>"/>
+            <input type="hidden" class="acumulador_ficha" value="<?php echo $_SESSION['acumulador_ficha']; ?>"/>
+            <input type="hidden" class="posicion_ficha_abajo" value="<?php echo $_SESSION['posicion_ficha_abajo']; ?>"/>
+            <input type="hidden" class="posicion_ficha_arriba" value="<?php echo $_SESSION['posicion_ficha_arriba']; ?>"/>
+            <input type="hidden" class="posicion_ficha_derecha" value="<?php echo $_SESSION['posicion_ficha_derecha']; ?>"/>
+            <input type="hidden" class="posicion_ficha_izquierda" value="<?php echo $_SESSION['posicion_ficha_izquierda']; ?>"/>
             <table cellspacing="0" cellpadding="0">
                 <tr>
                     <td class="mostasa paso">
@@ -94,7 +102,7 @@ if (!isset($_SESSION['usuario_logeado'])) {
                 <div>10° Oscar 320pts</div>
             </div>
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script type="text/javascript" src="indexjs.php"></script>
+            <script type="text/javascript" src="index.js"></script>
         </body>
     </html>
     <?php
