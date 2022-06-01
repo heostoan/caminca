@@ -50,8 +50,8 @@ body{
 }
 .area_ficha{
     text-align: center;
-    width: 115px;
-    height: 115px;
+    width: 105px;
+    height: 105px;
     position: absolute;
     border: 15px solid transparent;
 }

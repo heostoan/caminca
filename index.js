@@ -42,7 +42,7 @@ function jugar() {
     readTextFile("./data_preguntas.json", function (text) {
         data = JSON.parse(text);
         for (var i = 0; i < data.length; i++) {
-            console.log(data[i]["id_alt"] + "==" + acumulador_valor_dados + "&&" + data[i]["nivel"] + "==" + nivel)
+            //console.log(data[i]["id_alt"] + "==" + acumulador_valor_dados + "&&" + data[i]["nivel"] + "==" + nivel)
             if (parseInt(data[i]["id_alt"]) == parseInt(acumulador_valor_dados) && parseInt(data[i]["nivel"]) == parseInt(nivel)) {
                 var respuesta_correta = data[i]["respuesta"];
                 if (data[i]["respuesta"] == 1) {
@@ -93,108 +93,7 @@ function jugar() {
                                     type: "POST"
                                 });
                             });
-                            for (var i = 0, max = valor_dado; i < max; i++) {
-                                acumulador_valor_dados_total++;
-                                acumulador_valor_dados++;
-                                jQuery.ajax({
-                                    url: 'admin/controlador/usuario.php',
-                                    data: 'acumulador_ficha=' + acumulador_valor_dados + '&id_usuario=' + idusuario + '&accion=ActualizarAcumuladorPosicionFicha',
-                                    cache: false,
-                                    dataType: 'html',
-                                    type: "POST"
-                                });
-                                if (acumulador_valor_dados <= 7 || (acumulador_valor_dados >= 25 && acumulador_valor_dados <= 31)) {
-                                    total_avance_arriba = paso_ancho - 14.5;
-                                    posicion_ficha_arriba = posicion_ficha_arriba + total_avance_arriba;
-                                    $(".area_ficha").css("left", posicion_ficha_arriba);
-                                    jQuery.ajax({
-                                        url: 'admin/controlador/usuario.php',
-                                        data: 'posicion_ficha_arriba=' + posicion_ficha_arriba + '&id_usuario=' + idusuario + '&accion=ActualizarPosicionArriba',
-                                        cache: false,
-                                        dataType: 'html',
-                                        type: "POST"
-                                    });
-                                } else if ((acumulador_valor_dados >= 8 && acumulador_valor_dados <= 13) || (acumulador_valor_dados >= 32 && acumulador_valor_dados <= 37)) {
-                                    total_avance_derecha = paso_alto - 14.5;
-                                    posicion_ficha_derecha = posicion_ficha_derecha + total_avance_derecha;
-                                    $(".area_ficha").css("top", posicion_ficha_derecha);
-                                    jQuery.ajax({
-                                        url: 'admin/controlador/usuario.php',
-                                        data: 'posicion_ficha_derecha=' + posicion_ficha_derecha + '&id_usuario=' + idusuario + '&accion=ActualizarPosicionDerecha',
-                                        cache: false,
-                                        dataType: 'html',
-                                        type: "POST"
-                                    });
-                                } else if ((acumulador_valor_dados >= 14 && acumulador_valor_dados <= 19) || (acumulador_valor_dados >= 38 && acumulador_valor_dados <= 43)) {
-                                    total_avance_abajo = paso_ancho - 14.5;
-                                    posicion_ficha_abajo = posicion_ficha_abajo + total_avance_abajo;
-                                    $(".area_ficha").css("left", "");
-                                    $(".area_ficha").css("right", posicion_ficha_abajo);
-                                    jQuery.ajax({
-                                        url: 'admin/controlador/usuario.php',
-                                        data: 'posicion_ficha_abajo=' + posicion_ficha_abajo + '&id_usuario=' + idusuario + '&accion=ActualizarPosicionAbajo',
-                                        cache: false,
-                                        dataType: 'html',
-                                        type: "POST"
-                                    });
-                                } else if ((acumulador_valor_dados >= 20 && acumulador_valor_dados <= 25) || (acumulador_valor_dados >= 44 && acumulador_valor_dados <= 49)) {
-                                    total_avance_izquierda = paso_alto - 14.5;
-                                    posicion_ficha_izquierda = total_avance_izquierda + posicion_ficha_izquierda;
-                                    $(".area_ficha").css("top", "");
-                                    $(".area_ficha").css("bottom", posicion_ficha_izquierda);
-                                    jQuery.ajax({
-                                        url: 'admin/controlador/usuario.php',
-                                        data: 'posicion_ficha_izquierda=' + posicion_ficha_izquierda + '&id_usuario=' + idusuario + '&accion=ActualizarPosicionIzquierda',
-                                        cache: false,
-                                        dataType: 'html',
-                                        type: "POST"
-                                    });
-                                    if (acumulador_valor_dados == 25 || acumulador_valor_dados == 49) {
-                                        acumulador_valor_dados = 0;
-                                        posicion_ficha_abajo = 0;
-                                        posicion_ficha_arriba = 0;
-                                        posicion_ficha_derecha = 0;
-                                        posicion_ficha_izquierda = 0;
-                                        if (nivel_basico === true) {
-                                            $(".img_ficha").attr('src', 'img/fichaRojaIntermedio.png');
-                                            $('.mostasa').addClass('crema_i').removeClass('mostasa');
-                                            $('.crema').addClass('ladrillo_i').removeClass('crema');
-                                            $('.ladrillo').addClass('petroleo_i').removeClass('ladrillo');
-                                            $('.petroleo').addClass('naranja_i').removeClass('petroleo');
-                                            $('.naranja').addClass('mostasa_i').removeClass('naranja');
-                                            nivel_basico = false;
-                                            nivel_intermedio = true;
-                                            nivel = 2;
-                                            jQuery.ajax({
-                                                url: 'admin/controlador/usuario.php',
-                                                data: 'nivel=2&id_usuario=' + idusuario + '&accion=ActualizarNivel',
-                                                cache: false,
-                                                dataType: 'html',
-                                                type: "POST"
-                                            });
-                                        } else if (nivel_intermedio === true) {
-                                            $(".img_ficha").attr('src', 'img/fichaAzulAvanzado.png');
-                                            $('.mostasa_i').addClass('crema_a').removeClass('mostasa_i');
-                                            $('.crema_i').addClass('ladrillo_a').removeClass('crema_i');
-                                            $('.ladrillo_i').addClass('petroleo_a').removeClass('ladrillo_i');
-                                            $('.petroleo_i').addClass('naranja_a').removeClass('petroleo_i');
-                                            $('.naranja_i').addClass('mostasa_a').removeClass('naranja_i');
-                                            nivel_intermedio = false;
-                                            nivel_avanzado = true;
-                                            nivel = 3;
-                                            jQuery.ajax({
-                                                url: 'admin/controlador/usuario.php',
-                                                data: 'nivel=3&id_usuario=' + idusuario + '&accion=ActualizarNivel',
-                                                cache: false,
-                                                dataType: 'html',
-                                                type: "POST"
-                                            });
-                                        } else if (nivel_avanzado === true) {
-                                            nivel_avanzado = false;
-                                        }
-                                    }
-                                }
-                            }
+                            avanzarFicha(2);
                         } else {
                             puntos_totales = puntos_totales - 20;
                             Swal.fire({
@@ -209,7 +108,7 @@ function jugar() {
                                     text: 'Perdiste 20 puntos, ahora tiene ' + puntos_totales + ' puntos.',
                                     showConfirmButton: false,
                                     timer: 1800
-                                })
+                                });
                                 jQuery.ajax({
                                     url: 'admin/controlador/usuario.php',
                                     data: 'puntos_totales=' + puntos_totales + '&id_usuario=' + idusuario + '&accion=ActualizarPuntos',
@@ -217,12 +116,12 @@ function jugar() {
                                     dataType: 'html',
                                     type: "POST"
                                 });
+                                //retrocederFicha(1);
                             });
                         }
                     }
                 })
                 break;
-
             }
         }
     })
@@ -240,16 +139,42 @@ function salir() {
         confirmButtonText: 'Si'
     }).then((result) => {
         if (result.isConfirmed) {
-            jQuery.ajax({
-                url: 'admin/controlador/usuario.php',
-                data: 'id_usuario=' + idusuario + '&accion=RepeticionNivel1',
-                cache: false,
-                dataType: 'html',
-                type: "POST",
-                success: function (datos) {
-                    location.href = "index.php";
-                }
-            });
+            if (nivel == 1) {
+                jQuery.ajax({
+                    url: 'admin/controlador/usuario.php',
+                    data: 'id_usuario=' + idusuario + '&accion=RepeticionNivel1',
+                    cache: false,
+                    dataType: 'html',
+                    type: "POST",
+                    success: function (datos) {
+                        location.href = "index.php";
+                    }
+                });
+            }
+            if (nivel == 2) {
+                jQuery.ajax({
+                    url: 'admin/controlador/usuario.php',
+                    data: 'id_usuario=' + idusuario + '&accion=RepeticionNivel2',
+                    cache: false,
+                    dataType: 'html',
+                    type: "POST",
+                    success: function (datos) {
+                        location.href = "index.php";
+                    }
+                });
+            }
+            if (nivel == 3) {
+                jQuery.ajax({
+                    url: 'admin/controlador/usuario.php',
+                    data: 'id_usuario=' + idusuario + '&accion=RepeticionNivel3',
+                    cache: false,
+                    dataType: 'html',
+                    type: "POST",
+                    success: function (datos) {
+                        location.href = "index.php";
+                    }
+                });
+            }
         }
     });
 }
@@ -267,39 +192,248 @@ function countTimer() {
     if (seconds < 10)
         seconds = "0" + seconds;
     var tiempo = hour + ":" + minute + ":" + seconds;
-    jQuery.ajax({
-        url: 'admin/controlador/usuario.php',
-        data: 'tiempo=' + tiempo + '&id_usuario=' + idusuario + '&accion=ActualizarTiempoNivel1',
-        cache: false,
-        dataType: 'html',
-        type: "POST"
-    });
+    if (nivel == 1) {
+        jQuery.ajax({
+            url: 'admin/controlador/usuario.php',
+            data: 'tiempo=' + tiempo + '&id_usuario=' + idusuario + '&accion=ActualizarTiempoNivel1',
+            cache: false,
+            dataType: 'html',
+            type: "POST"
+        });
+    }
+    if (nivel == 2) {
+        jQuery.ajax({
+            url: 'admin/controlador/usuario.php',
+            data: 'tiempo=' + tiempo + '&id_usuario=' + idusuario + '&accion=ActualizarTiempoNivel2',
+            cache: false,
+            dataType: 'html',
+            type: "POST"
+        });
+    }
+    if (nivel == 3) {
+        jQuery.ajax({
+            url: 'admin/controlador/usuario.php',
+            data: 'tiempo=' + tiempo + '&id_usuario=' + idusuario + '&accion=ActualizarTiempoNivel3',
+            cache: false,
+            dataType: 'html',
+            type: "POST"
+        });
+    }
+}
+
+function avanzarFicha(valor_dado) {
+    for (var i = 0, max = valor_dado; i < max; i++) {
+        acumulador_valor_dados_total++;
+        acumulador_valor_dados++;
+        jQuery.ajax({
+            url: 'admin/controlador/usuario.php',
+            data: 'acumulador_ficha=' + acumulador_valor_dados + '&id_usuario=' + idusuario + '&accion=ActualizarAcumuladorPosicionFicha',
+            cache: false,
+            dataType: 'html',
+            type: "POST"
+        });
+        if (acumulador_valor_dados <= 7) {
+            total_avance_arriba = paso_ancho - 14.5;
+            posicion_ficha_arriba = posicion_ficha_arriba + total_avance_arriba;
+            $(".area_ficha").css("left", posicion_ficha_arriba);
+            $(".area_ficha").css("top", "0");
+            jQuery.ajax({
+                url: 'admin/controlador/usuario.php',
+                data: 'posicion_ficha_arriba=' + posicion_ficha_arriba + '&id_usuario=' + idusuario + '&accion=ActualizarPosicionArriba',
+                cache: false,
+                dataType: 'html',
+                type: "POST"
+            });
+        } else if (acumulador_valor_dados >= 8 && acumulador_valor_dados <= 13) {
+            total_avance_derecha = paso_alto - 14.5;
+            posicion_ficha_derecha = posicion_ficha_derecha + total_avance_derecha;
+            $(".area_ficha").css("top", posicion_ficha_derecha);
+            $(".area_ficha").css("right", "0");
+            jQuery.ajax({
+                url: 'admin/controlador/usuario.php',
+                data: 'posicion_ficha_derecha=' + posicion_ficha_derecha + '&id_usuario=' + idusuario + '&accion=ActualizarPosicionDerecha',
+                cache: false,
+                dataType: 'html',
+                type: "POST"
+            });
+        } else if (acumulador_valor_dados >= 14 && acumulador_valor_dados <= 19) {
+            total_avance_abajo = paso_ancho - 14.5;
+            posicion_ficha_abajo = posicion_ficha_abajo + total_avance_abajo;
+            $(".area_ficha").css("left", "");
+            $(".area_ficha").css("right", posicion_ficha_abajo);
+            $(".area_ficha").css("bottom", "0");
+            jQuery.ajax({
+                url: 'admin/controlador/usuario.php',
+                data: 'posicion_ficha_abajo=' + posicion_ficha_abajo + '&id_usuario=' + idusuario + '&accion=ActualizarPosicionAbajo',
+                cache: false,
+                dataType: 'html',
+                type: "POST"
+            });
+        } else if (acumulador_valor_dados >= 20 && acumulador_valor_dados <= 25) {
+            total_avance_izquierda = paso_alto - 14.5;
+            posicion_ficha_izquierda = total_avance_izquierda + posicion_ficha_izquierda;
+            $(".area_ficha").css("top", "");
+            $(".area_ficha").css("bottom", posicion_ficha_izquierda);
+            $(".area_ficha").css("left", "0");
+            jQuery.ajax({
+                url: 'admin/controlador/usuario.php',
+                data: 'posicion_ficha_izquierda=' + posicion_ficha_izquierda + '&id_usuario=' + idusuario + '&accion=ActualizarPosicionIzquierda',
+                cache: false,
+                dataType: 'html',
+                type: "POST"
+            });
+            if (acumulador_valor_dados == 24) {
+                posicion_ficha_abajo = 0;
+                posicion_ficha_arriba = 0;
+                posicion_ficha_derecha = 0;
+                posicion_ficha_izquierda = 0;
+                $('.area_ficha').removeAttr('style');
+            }
+            if (acumulador_valor_dados >= 24) {
+                console.log(acumulador_valor_dados_total)
+                if (acumulador_valor_dados_total != 72) {
+                    acumulador_valor_dados = 0;
+                } else {
+                    acumulador_valor_dados = 73;
+                }
+                if (nivel_basico === true && nivel_intermedio === false && nivel_avanzado === false) {
+                    $(".img_ficha").attr('src', 'img/fichaRojaIntermedio.png');
+                    $('.mostasa').addClass('crema_i').removeClass('mostasa');
+                    $('.crema').addClass('ladrillo_i').removeClass('crema');
+                    $('.ladrillo').addClass('petroleo_i').removeClass('ladrillo');
+                    $('.petroleo').addClass('naranja_i').removeClass('petroleo');
+                    $('.naranja').addClass('mostasa_i').removeClass('naranja');
+                    nivel_basico = false;
+                    nivel_intermedio = true;
+                    nivel = 2;
+                    jQuery.ajax({
+                        url: 'admin/controlador/usuario.php',
+                        data: 'nivel=2&id_usuario=' + idusuario + '&accion=ActualizarNivel',
+                        cache: false,
+                        dataType: 'html',
+                        type: "POST"
+                    });
+                } else if (nivel_intermedio === true && nivel_basico === false && nivel_avanzado === false) {
+                    $(".img_ficha").attr('src', 'img/fichaAzulAvanzado.png');
+                    $('.mostasa_i').addClass('crema_a').removeClass('mostasa_i');
+                    $('.crema_i').addClass('ladrillo_a').removeClass('crema_i');
+                    $('.ladrillo_i').addClass('petroleo_a').removeClass('ladrillo_i');
+                    $('.petroleo_i').addClass('naranja_a').removeClass('petroleo_i');
+                    $('.naranja_i').addClass('mostasa_a').removeClass('naranja_i');
+                    nivel_intermedio = false;
+                    nivel_avanzado = true;
+                    nivel = 3;
+                    jQuery.ajax({
+                        url: 'admin/controlador/usuario.php',
+                        data: 'nivel=3&id_usuario=' + idusuario + '&accion=ActualizarNivel',
+                        cache: false,
+                        dataType: 'html',
+                        type: "POST"
+                    });
+                } else if (nivel_basico === false && nivel_intermedio === false && nivel_avanzado === true) {
+                    nivel_avanzado = false;
+                }
+            }
+        }
+    }
+}
+
+function retrocederFicha(valor_dado) {
+    if (acumulador_valor_dados != 1) {
+        for (var i = 0, max = valor_dado; i < max; i++) {
+            if (acumulador_valor_dados <= 7) {
+                total_avance_arriba = paso_ancho - 14.5;
+                posicion_ficha_arriba = posicion_ficha_arriba - total_avance_arriba;
+                $(".area_ficha").css("left", posicion_ficha_arriba);
+            } else if (acumulador_valor_dados >= 8 && acumulador_valor_dados <= 11) {
+                total_avance_derecha = paso_alto - 14.5;
+                posicion_ficha_derecha -= total_avance_derecha;
+                $(".area_ficha").css("top", posicion_ficha_derecha);
+            } else if (acumulador_valor_dados >= 12 && acumulador_valor_dados <= 18) {
+                total_avance_abajo = paso_ancho - 14.5;
+                posicion_ficha_abajo = posicion_ficha_abajo - total_avance_abajo;
+                $(".area_ficha").css("left", "");
+                $(".area_ficha").css("right", posicion_ficha_abajo);
+            } else if (acumulador_valor_dados >= 19 && acumulador_valor_dados <= 22) {
+                total_avance_izquierda = paso_alto - 14.5;
+                posicion_ficha_izquierda = posicion_ficha_izquierda - total_avance_izquierda;
+                $(".area_ficha").css("top", "");
+                $(".area_ficha").css("bottom", posicion_ficha_izquierda);
+                if (acumulador_valor_dados >= 24) {
+                    acumulador_valor_dados = 1;
+                    posicion_ficha_abajo = 0;
+                    posicion_ficha_arriba = 0;
+                    posicion_ficha_derecha = 0;
+                    posicion_ficha_izquierda = 0;
+                    if (nivel_basico === true && nivel_intermedio === false && nivel_avanzado === false) {
+                        $(".img_ficha").attr('src', 'img/fichaRojaIntermedio.png');
+                        $('.mostasa').addClass('crema_i').removeClass('mostasa');
+                        $('.crema').addClass('ladrillo_i').removeClass('crema');
+                        $('.ladrillo').addClass('petroleo_i').removeClass('ladrillo');
+                        $('.petroleo').addClass('naranja_i').removeClass('petroleo');
+                        $('.naranja').addClass('mostasa_i').removeClass('naranja');
+                        nivel_basico = false;
+                        nivel_intermedio = true;
+                        nivel = 2;
+                        jQuery.ajax({
+                            url: 'admin/controlador/usuario.php',
+                            data: 'nivel=2&id_usuario=' + idusuario + '&accion=ActualizarNivel',
+                            cache: false,
+                            dataType: 'html',
+                            type: "POST"
+                        });
+                    } else if (nivel_intermedio === true && nivel_basico === false && nivel_avanzado === false) {
+                        $(".img_ficha").attr('src', 'img/fichaAzulAvanzado.png');
+                        $('.mostasa_i').addClass('crema_a').removeClass('mostasa_i');
+                        $('.crema_i').addClass('ladrillo_a').removeClass('crema_i');
+                        $('.ladrillo_i').addClass('petroleo_a').removeClass('ladrillo_i');
+                        $('.petroleo_i').addClass('naranja_a').removeClass('petroleo_i');
+                        $('.naranja_i').addClass('mostasa_a').removeClass('naranja_i');
+                        nivel_intermedio = false;
+                        nivel_avanzado = true;
+                        nivel = 3;
+                        jQuery.ajax({
+                            url: 'admin/controlador/usuario.php',
+                            data: 'nivel=3&id_usuario=' + idusuario + '&accion=ActualizarNivel',
+                            cache: false,
+                            dataType: 'html',
+                            type: "POST"
+                        });
+                    } else if (nivel_basico === false && nivel_intermedio === false && nivel_avanzado === true) {
+                        nivel_avanzado = false;
+                    }
+                }
+            }
+            acumulador_valor_dados--;
+            acumulador_valor_dados_total--;
+        }
+    }
 }
 
 $(document).ready(function () {
     Swal.fire({
-        title: 'Bienvenido al nivel ' + nombre_nivel,
+        title: 'Bienvenido, usted se encuentra en el nivel ' + nombre_nivel,
         text: '¡Usted cuenta con ' + puntos_totales + ' puntos!',
-        confirmButtonText: 'Entendido'
+        confirmButtonText: 'Comenzar a jugar'
     });
     setInterval(function () {
         countTimer()
     }, 1000);
 
     //SETEAR POSICION FICHA AL CARGAR PAGINA
-    if (acumulador_valor_dados <= 6) {
+    if (acumulador_valor_dados <= 7) {
         $(".area_ficha").css("left", posicion_ficha_arriba);
     }
-    if (acumulador_valor_dados >= 7 && acumulador_valor_dados <= 12) {
+    if (acumulador_valor_dados >= 8 && acumulador_valor_dados <= 13) {
         $(".area_ficha").css("left", posicion_ficha_arriba);
         $(".area_ficha").css("top", posicion_ficha_derecha);
     }
-    if (acumulador_valor_dados >= 13 && acumulador_valor_dados <= 18) {
+    if (acumulador_valor_dados >= 14 && acumulador_valor_dados <= 19) {
         $(".area_ficha").css("top", posicion_ficha_derecha);
         $(".area_ficha").css("right", posicion_ficha_abajo);
         $(".area_ficha").css("left", "");
     }
-    if (acumulador_valor_dados >= 18 && acumulador_valor_dados <= 24) {
+    if (acumulador_valor_dados >= 20 && acumulador_valor_dados <= 25) {
         $(".area_ficha").css("top", "");
         $(".area_ficha").css("right", posicion_ficha_abajo);
         $(".area_ficha").css("left", "");

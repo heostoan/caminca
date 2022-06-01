@@ -48,10 +48,58 @@ if ($cAccion == 'ActualizarTiempoNivel1') {
     }
 }
 
+if ($cAccion == 'ActualizarTiempoNivel2') {
+    try {
+        $usuario = array($_POST['tiempo'], $_POST['id_usuario']);
+        $Resultado = $objUsuario->Upd_Tiempo_Nivel2($usuario);
+        $objUsuario->beginTransaction();
+        echo $Resultado;
+    } catch (Exception $e) {
+        $objUsuario->rollback();
+        echo $e;
+    }
+}
+
+if ($cAccion == 'ActualizarTiempoNivel3') {
+    try {
+        $usuario = array($_POST['tiempo'], $_POST['id_usuario']);
+        $Resultado = $objUsuario->Upd_Tiempo_Nivel3($usuario);
+        $objUsuario->beginTransaction();
+        echo $Resultado;
+    } catch (Exception $e) {
+        $objUsuario->rollback();
+        echo $e;
+    }
+}
+
 if ($cAccion == 'RepeticionNivel1') {
     try {
         $usuario = array($_POST['id_usuario']);
         $Resultado = $objUsuario->Upd_Repeticion_Nivel1($usuario);
+        $objUsuario->beginTransaction();
+        echo $Resultado;
+    } catch (Exception $e) {
+        $objUsuario->rollback();
+        echo $e;
+    }
+}
+
+if ($cAccion == 'RepeticionNivel2') {
+    try {
+        $usuario = array($_POST['id_usuario']);
+        $Resultado = $objUsuario->Upd_Repeticion_Nivel2($usuario);
+        $objUsuario->beginTransaction();
+        echo $Resultado;
+    } catch (Exception $e) {
+        $objUsuario->rollback();
+        echo $e;
+    }
+}
+
+if ($cAccion == 'RepeticionNivel3') {
+    try {
+        $usuario = array($_POST['id_usuario']);
+        $Resultado = $objUsuario->Upd_Repeticion_Nivel3($usuario);
         $objUsuario->beginTransaction();
         echo $Resultado;
     } catch (Exception $e) {
@@ -131,29 +179,5 @@ if ($cAccion == 'ActualizarNivel') {
         echo $e;
     }
 }
-/*
-  if ($cAccion == 'editarProducto') {
-  try {
-  $_POST['icono_menu'] = str_replace("img/productos/", "", $_POST['icono_menu']);
-  $producto = array($_POST['nombre_menu'], "img/productos/" . $_POST['icono_menu'], $_POST['tamanho'], $_POST['peso'], $_POST['previene'], $_POST['descripcion'], $_POST['beneficios'], $_POST['aire'], $_POST['gel'], $_POST['espuma'], $_POST['titulo_pagina'], $_POST['rotulo_medio'], $_POST['contextura'], $_POST['idproducto']);
-  $Resultado = $objProductos->Upd_Producto($producto);
-  $objProductos->beginTransaction();
-  echo $Resultado;
-  } catch (Exception $e) {
-  $objProductos->rollback();
-  echo $e;
-  }
-  }
 
-  if ($cAccion == 'eliminarProducto') {
-  try {
-  $producto = array($_POST['idproducto']);
-  $Resultado = $objProductos->Del_Producto($producto);
-  $objProductos->beginTransaction();
-  echo $Resultado;
-  } catch (Exception $e) {
-  $objProductos->rollback();
-  echo $e;
-  }
-  } */
 ?>
