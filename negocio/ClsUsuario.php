@@ -38,6 +38,50 @@ usuario
         return $data;
     }
 
+    function Get_Orden_Merito($usuario, $nivel, $puntaje) {
+        $this->query = "SELECT
+	estatus.id_usuario,
+	usuario.nombres,
+	usuario.apellidos,
+	estatus.puntaje
+FROM
+	estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario
+WHERE
+	puntaje > $puntaje
+AND nivel = $nivel
+UNION
+	SELECT
+		estatus.id_usuario,
+		usuario.nombres,
+		usuario.apellidos,
+		estatus.puntaje
+	FROM
+		estatus
+	INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario
+	WHERE
+		id_usuario = $usuario
+	AND nivel = $nivel
+	UNION
+		SELECT
+			estatus.id_usuario,
+			usuario.nombres,
+			usuario.apellidos,
+			estatus.puntaje
+		FROM
+			estatus
+		INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario
+		WHERE
+			puntaje < $puntaje
+		AND nivel = $nivel
+		ORDER BY
+			puntaje DESC
+		LIMIT 10;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
     function Get_Status_By_Usuario($usuario) {
         $this->query = "SELECT * from estatus where id_usuario=$usuario;";
         $this->execute_query();

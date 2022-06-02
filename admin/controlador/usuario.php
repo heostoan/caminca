@@ -191,4 +191,10 @@ if ($cAccion == 'RestablecerPosicionJuego') {
         echo $e;
     }
 }
+
+if ($cAccion == 'ActualizarOrdenMerito') {
+    $Resultado = $objUsuario->Get_Orden_Merito($_POST['id_usuario'], $_POST['nivel'], $_POST['puntaje']);
+    $objUsuario->beginTransaction();
+    echo json_encode($Resultado);
+}
 ?>

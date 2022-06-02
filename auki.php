@@ -15,6 +15,12 @@ if (!isset($_SESSION['usuario_logeado'])) {
         $posicion_ficha_izquierda = $value['posicion_ficha_izquierda'];
         $posicion_ficha_arriba = $value['posicion_ficha_arriba'];
         $posicion_ficha_derecha = $value['posicion_ficha_derecha'];
+        if ($nivel == 1) {
+            header("refresh:0;url=panaca.php");
+        }
+        if ($nivel == 3) {
+            header("refresh:0;url=inca.php");
+        }
     }
     ?>
     <!DOCTYPE html>
@@ -34,7 +40,7 @@ if (!isset($_SESSION['usuario_logeado'])) {
             <input type="hidden" class="posicion_ficha_arriba" value="<?php echo $posicion_ficha_arriba; ?>"/>
             <input type="hidden" class="posicion_ficha_derecha" value="<?php echo $posicion_ficha_derecha; ?>"/>
             <input type="hidden" class="posicion_ficha_izquierda" value="<?php echo $posicion_ficha_izquierda; ?>"/>
-            <table cellspacing="0" cellpadding="0">
+            <table cellspacing="0" cellpadding="0" class="tablero">
                 <tr>
                     <td class="mostasa paso">
                         <div class="area_ficha efecto" style="left: 0; right: 0; bottom: 0; top: 0">

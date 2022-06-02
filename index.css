@@ -55,7 +55,7 @@ body{
     position: absolute;
     border: 15px solid transparent;
 }
-.paso, td{
+.paso, .tablero td{
     width: 120px;
     height: 120px;
     border: 15px solid #847539;
@@ -97,7 +97,7 @@ td div span{
     transition-property:all;
     transition-timing-function:cubic-bezier(.7,1,.7,1)
 }
-table{
+.tablero{
     border-collapse: collapse;
     margin: 0 auto;
     position: relative;

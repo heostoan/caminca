@@ -15,6 +15,12 @@ if (!isset($_SESSION['usuario_logeado'])) {
         $posicion_ficha_izquierda = $value['posicion_ficha_izquierda'];
         $posicion_ficha_arriba = $value['posicion_ficha_arriba'];
         $posicion_ficha_derecha = $value['posicion_ficha_derecha'];
+        if ($nivel == 2) {
+            header("refresh:0;url=auki.php");
+        }
+        if ($nivel == 3) {
+            header("refresh:0;url=inca.php");
+        }
     }
     ?>
     <!DOCTYPE html>
@@ -34,7 +40,7 @@ if (!isset($_SESSION['usuario_logeado'])) {
             <input type="hidden" class="posicion_ficha_arriba" value="<?php echo $posicion_ficha_arriba; ?>"/>
             <input type="hidden" class="posicion_ficha_derecha" value="<?php echo $posicion_ficha_derecha; ?>"/>
             <input type="hidden" class="posicion_ficha_izquierda" value="<?php echo $posicion_ficha_izquierda; ?>"/>
-            <table cellspacing="0" cellpadding="0">
+            <table cellspacing="0" cellpadding="0" class="tablero">
                 <tr>
                     <td class="mostasa paso">
                         <div class="area_ficha efecto" style="left: 0; right: 0; bottom: 0; top: 0">
@@ -96,17 +102,9 @@ if (!isset($_SESSION['usuario_logeado'])) {
             </table>
             <div class="salir_juego" onclick="salir()">Salir del juego</div>
             <div class="cuadro_merito">
-                <b style="text-align: center">RANKING</b>
-                <div>1° Juan 320pts</div>
-                <div>2° Bianka 320pts</div>
-                <div>3° Manuel 320pts</div>
-                <div>4° Fernanda 320pts</div>
-                <div>5° Alonso 320pts</div>
-                <div>6° Antonio 320pts</div>
-                <div>7° Grecia 320pts</div>
-                <div>8° Luis 320pts</div>
-                <div>9° Jaime 320pts</div>
-                <div>10° Oscar 320pts</div>
+                <div style="text-align: center; width: 100%; font-weight: bold; padding-bottom: 5px; border-bottom: 1px solid black; margin-bottom: 3px">RANKING</div>
+                <table class="list_om">
+                </table>
             </div>
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script type="text/javascript" src="index.js"></script>

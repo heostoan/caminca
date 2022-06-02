@@ -34,7 +34,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Gestión de usuario
+                                Registro de nuevo usuario
                             </div>
                             <div class="panel-body">
                                 <div class="row">
