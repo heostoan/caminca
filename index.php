@@ -40,7 +40,14 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
             $msj = "<div class='alert alert-success' style='margin-top:20px;'>
                                 Usuario autenticado. Espere...
                             </div>";
-            header("refresh:0;url=juega.php");
+
+            if ($valueEstatus['nivel'] == 1) {
+                header("refresh:0;url=panaca.php");
+            } else if ($valueEstatus['nivel'] == 2) {
+                header("refresh:0;url=auki.php");
+            } else if ($valueEstatus['nivel'] == 3) {
+                header("refresh:0;url=inca.php");
+            }
         } else {
             $msj = "<div class='alert alert-danger' style='margin-top:20px;'>
                                 Usario o Clave incorrecta
@@ -97,6 +104,9 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
                                     </div>
                                     <!-- Change this to a button or input when using this as a form -->
                                     <input type="submit" class="btn btn-lg btn-success btn-block" value="Iniciar sesión" />
+                                    <div class="text-center" style="margin-top: 10px">
+                                        <a href="nuevo-usuario.php" class="text-center">Usuario nuevo, regístrate aquí</a>
+                                    </div>
                                     <?php
                                     echo $msj;
                                     ?>      

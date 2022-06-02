@@ -38,6 +38,13 @@ usuario
         return $data;
     }
 
+    function Get_Status_By_Usuario($usuario) {
+        $this->query = "SELECT * from estatus where id_usuario=$usuario;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
     function Set_Usuario($usuario) {
         $this->query = "insert into usuario(nombres,apellidos,edad,celular,usuario,clave,tipo_usuario,estado) values ('$usuario[0]','$usuario[1]','$usuario[2]','$usuario[3]','$usuario[4]',md5('$usuario[5]'),2,1)";
         $this->execute_single_query();
@@ -45,7 +52,7 @@ usuario
     }
 
     function Set_Estatus() {
-        $this->query = "insert into estatus(id_usuario,nivel,puntaje,tiempo_nivel1,tiempo_nivel2,tiempo_nivel3,repeticion_nivel1,repeticion_nivel2,repeticion_nivel3,posicion_ficha_abajo,posicion_ficha_arriba,posicion_ficha_derecha,posicion_ficha_izquierda,acumulador_ficha) values ((select max(idusuario) from usuario),1,100,'00:00:00','00:00:00','00:00:00',0,0,0,0,0,0,0,1)";
+        $this->query = "insert into estatus(id_usuario,nivel,puntaje,tiempo_nivel1,tiempo_nivel2,tiempo_nivel3,repeticion_nivel1,repeticion_nivel2,repeticion_nivel3,posicion_ficha_abajo,posicion_ficha_arriba,posicion_ficha_derecha,posicion_ficha_izquierda,acumulador_ficha) values ((select max(idusuario) from usuario),1,100,'00:00:00','00:00:00','00:00:00',0,0,0,0,0,0,0,0)";
         $this->execute_single_query();
         return json_encode('Registro realizado correctamente');
     }
@@ -133,6 +140,12 @@ usuario
         $this->query = "update estatus set acumulador_ficha='$usuario[0]' where id_usuario='$usuario[1]'";
         $this->execute_single_query();
         return json_encode('Actualización de la posicion izquierda');
+    }
+
+    function Upd_Posicion_Juego_Resetear($usuario) {
+        $this->query = "update estatus set acumulador_ficha='$usuario[0]',posicion_ficha_izquierda='$usuario[1]',posicion_ficha_derecha='$usuario[2]',posicion_ficha_arriba='$usuario[3]',posicion_ficha_abajo='$usuario[4]' where id_usuario='$usuario[5]'";
+        $this->execute_single_query();
+        return json_encode('Actualización de datos');
     }
 
 }

@@ -14,7 +14,7 @@ act('.btn_guardar_usuario').click(function () {
     var action = "registrarUsuario";
 
     jQuery.ajax({
-        url: 'controlador/usuario.php',
+        url: 'admin/controlador/usuario.php',
         data: 'nombres=' + nombres + '&apellidos=' + apellidos + '&edad=' + edad + '&celular=' + celular + '&usuario=' + usuario + '&clave=' + clave + '&accion=' + action,
         cache: false,
         dataType: 'html',
@@ -34,7 +34,7 @@ act('.btn_guardar_usuario').click(function () {
                 icon: "success",
                 button: "Entendido"
             }).then(function () {
-                location.href = "usuarios.php";
+                location.href = "index.php";
             });
         }
     });

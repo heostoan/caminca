@@ -2,14 +2,20 @@ var idusuario = $(".idusuario").val();
 var puntos_totales = parseInt($(".puntaje").val());
 var nivel = $(".nivel").val();
 var nombre_nivel = "";
+var nivel_basico = false;
+var nivel_intermedio = false;
+var nivel_avanzado = false;
 if (nivel == 1) {
     nombre_nivel = "Básico";
+    nivel_basico = true;
 }
 if (nivel == 2) {
     nombre_nivel = "Intermedio";
+    nivel_intermedio = true;
 }
 if (nivel == 3) {
     nombre_nivel = "Avanzado";
+    nivel_avanzado = true;
 }
 var valor_dado = 2;
 var paso_ancho = $(".paso").outerWidth();
@@ -20,9 +26,6 @@ var posicion_ficha_abajo = parseInt($(".posicion_ficha_abajo").val());
 var posicion_ficha_arriba = parseInt($(".posicion_ficha_arriba").val());
 var posicion_ficha_derecha = parseInt($(".posicion_ficha_derecha").val());
 var posicion_ficha_izquierda = parseInt($(".posicion_ficha_izquierda").val());
-var nivel_basico = true;
-var nivel_intermedio = false;
-var nivel_avanzado = false;
 var data = [];
 var totalSeconds = 0;
 
@@ -42,7 +45,6 @@ function jugar() {
     readTextFile("./data_preguntas.json", function (text) {
         data = JSON.parse(text);
         for (var i = 0; i < data.length; i++) {
-            //console.log(data[i]["id_alt"] + "==" + acumulador_valor_dados + "&&" + data[i]["nivel"] + "==" + nivel)
             if (parseInt(data[i]["id_alt"]) == parseInt(acumulador_valor_dados) && parseInt(data[i]["nivel"]) == parseInt(nivel)) {
                 var respuesta_correta = data[i]["respuesta"];
                 if (data[i]["respuesta"] == 1) {
@@ -93,7 +95,11 @@ function jugar() {
                                     type: "POST"
                                 });
                             });
-                            avanzarFicha(2);
+                            if (acumulador_valor_dados != 23) {
+                                avanzarFicha(2);
+                            } else {
+                                avanzarFicha(1);
+                            }
                         } else {
                             puntos_totales = puntos_totales - 20;
                             Swal.fire({
@@ -116,7 +122,9 @@ function jugar() {
                                     dataType: 'html',
                                     type: "POST"
                                 });
-                                //retrocederFicha(1);
+                                if (acumulador_valor_dados != 24) {
+                                    avanzarFicha(1);
+                                }
                             });
                         }
                     }
@@ -282,27 +290,13 @@ function avanzarFicha(valor_dado) {
                 dataType: 'html',
                 type: "POST"
             });
-            if (acumulador_valor_dados == 24) {
+            if (acumulador_valor_dados >= 24) {
+                acumulador_valor_dados = 0;
                 posicion_ficha_abajo = 0;
                 posicion_ficha_arriba = 0;
                 posicion_ficha_derecha = 0;
                 posicion_ficha_izquierda = 0;
-                $('.area_ficha').removeAttr('style');
-            }
-            if (acumulador_valor_dados >= 24) {
-                console.log(acumulador_valor_dados_total)
-                if (acumulador_valor_dados_total != 72) {
-                    acumulador_valor_dados = 0;
-                } else {
-                    acumulador_valor_dados = 73;
-                }
                 if (nivel_basico === true && nivel_intermedio === false && nivel_avanzado === false) {
-                    $(".img_ficha").attr('src', 'img/fichaRojaIntermedio.png');
-                    $('.mostasa').addClass('crema_i').removeClass('mostasa');
-                    $('.crema').addClass('ladrillo_i').removeClass('crema');
-                    $('.ladrillo').addClass('petroleo_i').removeClass('ladrillo');
-                    $('.petroleo').addClass('naranja_i').removeClass('petroleo');
-                    $('.naranja').addClass('mostasa_i').removeClass('naranja');
                     nivel_basico = false;
                     nivel_intermedio = true;
                     nivel = 2;
@@ -313,13 +307,9 @@ function avanzarFicha(valor_dado) {
                         dataType: 'html',
                         type: "POST"
                     });
+
+                    setearValoresJuego();
                 } else if (nivel_intermedio === true && nivel_basico === false && nivel_avanzado === false) {
-                    $(".img_ficha").attr('src', 'img/fichaAzulAvanzado.png');
-                    $('.mostasa_i').addClass('crema_a').removeClass('mostasa_i');
-                    $('.crema_i').addClass('ladrillo_a').removeClass('crema_i');
-                    $('.ladrillo_i').addClass('petroleo_a').removeClass('ladrillo_i');
-                    $('.petroleo_i').addClass('naranja_a').removeClass('petroleo_i');
-                    $('.naranja_i').addClass('mostasa_a').removeClass('naranja_i');
                     nivel_intermedio = false;
                     nivel_avanzado = true;
                     nivel = 3;
@@ -330,84 +320,30 @@ function avanzarFicha(valor_dado) {
                         dataType: 'html',
                         type: "POST"
                     });
-                } else if (nivel_basico === false && nivel_intermedio === false && nivel_avanzado === true) {
-                    nivel_avanzado = false;
+
+                    setearValoresJuego();
                 }
             }
         }
     }
 }
 
-function retrocederFicha(valor_dado) {
-    if (acumulador_valor_dados != 1) {
-        for (var i = 0, max = valor_dado; i < max; i++) {
-            if (acumulador_valor_dados <= 7) {
-                total_avance_arriba = paso_ancho - 14.5;
-                posicion_ficha_arriba = posicion_ficha_arriba - total_avance_arriba;
-                $(".area_ficha").css("left", posicion_ficha_arriba);
-            } else if (acumulador_valor_dados >= 8 && acumulador_valor_dados <= 11) {
-                total_avance_derecha = paso_alto - 14.5;
-                posicion_ficha_derecha -= total_avance_derecha;
-                $(".area_ficha").css("top", posicion_ficha_derecha);
-            } else if (acumulador_valor_dados >= 12 && acumulador_valor_dados <= 18) {
-                total_avance_abajo = paso_ancho - 14.5;
-                posicion_ficha_abajo = posicion_ficha_abajo - total_avance_abajo;
-                $(".area_ficha").css("left", "");
-                $(".area_ficha").css("right", posicion_ficha_abajo);
-            } else if (acumulador_valor_dados >= 19 && acumulador_valor_dados <= 22) {
-                total_avance_izquierda = paso_alto - 14.5;
-                posicion_ficha_izquierda = posicion_ficha_izquierda - total_avance_izquierda;
-                $(".area_ficha").css("top", "");
-                $(".area_ficha").css("bottom", posicion_ficha_izquierda);
-                if (acumulador_valor_dados >= 24) {
-                    acumulador_valor_dados = 1;
-                    posicion_ficha_abajo = 0;
-                    posicion_ficha_arriba = 0;
-                    posicion_ficha_derecha = 0;
-                    posicion_ficha_izquierda = 0;
-                    if (nivel_basico === true && nivel_intermedio === false && nivel_avanzado === false) {
-                        $(".img_ficha").attr('src', 'img/fichaRojaIntermedio.png');
-                        $('.mostasa').addClass('crema_i').removeClass('mostasa');
-                        $('.crema').addClass('ladrillo_i').removeClass('crema');
-                        $('.ladrillo').addClass('petroleo_i').removeClass('ladrillo');
-                        $('.petroleo').addClass('naranja_i').removeClass('petroleo');
-                        $('.naranja').addClass('mostasa_i').removeClass('naranja');
-                        nivel_basico = false;
-                        nivel_intermedio = true;
-                        nivel = 2;
-                        jQuery.ajax({
-                            url: 'admin/controlador/usuario.php',
-                            data: 'nivel=2&id_usuario=' + idusuario + '&accion=ActualizarNivel',
-                            cache: false,
-                            dataType: 'html',
-                            type: "POST"
-                        });
-                    } else if (nivel_intermedio === true && nivel_basico === false && nivel_avanzado === false) {
-                        $(".img_ficha").attr('src', 'img/fichaAzulAvanzado.png');
-                        $('.mostasa_i').addClass('crema_a').removeClass('mostasa_i');
-                        $('.crema_i').addClass('ladrillo_a').removeClass('crema_i');
-                        $('.ladrillo_i').addClass('petroleo_a').removeClass('ladrillo_i');
-                        $('.petroleo_i').addClass('naranja_a').removeClass('petroleo_i');
-                        $('.naranja_i').addClass('mostasa_a').removeClass('naranja_i');
-                        nivel_intermedio = false;
-                        nivel_avanzado = true;
-                        nivel = 3;
-                        jQuery.ajax({
-                            url: 'admin/controlador/usuario.php',
-                            data: 'nivel=3&id_usuario=' + idusuario + '&accion=ActualizarNivel',
-                            cache: false,
-                            dataType: 'html',
-                            type: "POST"
-                        });
-                    } else if (nivel_basico === false && nivel_intermedio === false && nivel_avanzado === true) {
-                        nivel_avanzado = false;
-                    }
-                }
+function setearValoresJuego() {
+    jQuery.ajax({
+        url: 'admin/controlador/usuario.php',
+        data: 'acumulador_ficha=0&posicion_ficha_izquierda=0&posicion_ficha_derecha=0&posicion_ficha_arriba=0&posicion_ficha_abajo=0&id_usuario=' + idusuario + '&accion=RestablecerPosicionJuego',
+        cache: false,
+        dataType: 'html',
+        type: "POST",
+        success: function (data, textStatus, jqXHR) {
+            if (nivel == 2) {
+                location.href = "auki.php";
             }
-            acumulador_valor_dados--;
-            acumulador_valor_dados_total--;
+            if (nivel == 3) {
+                location.href = "inca.php";
+            }
         }
-    }
+    });
 }
 
 $(document).ready(function () {
@@ -442,23 +378,11 @@ $(document).ready(function () {
 
     //SETEAR EL NIVEL DEL JUGADOR -->
     if (nivel == 2) {
-        $(".img_ficha").attr('src', 'img/fichaRojaIntermedio.png');
-        $('.mostasa').addClass('crema_i').removeClass('mostasa');
-        $('.crema').addClass('ladrillo_i').removeClass('crema');
-        $('.ladrillo').addClass('petroleo_i').removeClass('ladrillo');
-        $('.petroleo').addClass('naranja_i').removeClass('petroleo');
-        $('.naranja').addClass('mostasa_i').removeClass('naranja');
         nivel_basico = false;
         nivel_intermedio = true;
     }
 
     if (nivel == 3) {
-        $(".img_ficha").attr('src', 'img/fichaAzulAvanzado.png');
-        $('.mostasa_i').addClass('crema_a').removeClass('mostasa_i');
-        $('.crema_i').addClass('ladrillo_a').removeClass('crema_i');
-        $('.ladrillo_i').addClass('petroleo_a').removeClass('ladrillo_i');
-        $('.petroleo_i').addClass('naranja_a').removeClass('petroleo_i');
-        $('.naranja_i').addClass('mostasa_a').removeClass('naranja_i');
         nivel_intermedio = false;
         nivel_avanzado = true;
     }

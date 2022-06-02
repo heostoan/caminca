@@ -180,4 +180,15 @@ if ($cAccion == 'ActualizarNivel') {
     }
 }
 
+if ($cAccion == 'RestablecerPosicionJuego') {
+    try {
+        $usuario = array($_POST['acumulador_ficha'], $_POST['posicion_ficha_izquierda'], $_POST['posicion_ficha_derecha'], $_POST['posicion_ficha_arriba'], $_POST['posicion_ficha_abajo'], $_POST['id_usuario']);
+        $Resultado = $objUsuario->Upd_Posicion_Juego_Resetear($usuario);
+        $objUsuario->beginTransaction();
+        echo $Resultado;
+    } catch (Exception $e) {
+        $objUsuario->rollback();
+        echo $e;
+    }
+}
 ?>
