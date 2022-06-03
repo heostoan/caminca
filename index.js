@@ -34,10 +34,10 @@ function readTextFile(file, callback) {
     rawFile.overrideMimeType("application/json");
     rawFile.open("GET", file, true);
     rawFile.onreadystatechange = function () {
-        if (rawFile.readyState === 4 && rawFile.status == "200") {
+        if (rawFile.readyState == 4 && rawFile.status == "200") {
             callback(rawFile.responseText);
         }
-    }
+    };
     rawFile.send(null);
 }
 
@@ -72,7 +72,7 @@ function jugar() {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         var rpta = result.value;
-                        if (respuesta_correta === rpta) {
+                        if (respuesta_correta == rpta) {
                             puntos_totales = puntos_totales + 50;
                             Swal.fire({
                                 icon: 'success',
@@ -128,11 +128,11 @@ function jugar() {
                             });
                         }
                     }
-                })
+                });
                 break;
             }
         }
-    })
+    });
 }
 
 function salir() {
@@ -234,13 +234,6 @@ function avanzarFicha(valor_dado) {
         for (var i = 0, max = valor_dado; i < max; i++) {
             acumulador_valor_dados_total++;
             acumulador_valor_dados++;
-            jQuery.ajax({
-                url: 'admin/controlador/usuario.php',
-                data: 'acumulador_ficha=' + acumulador_valor_dados + '&id_usuario=' + idusuario + '&accion=ActualizarAcumuladorPosicionFicha',
-                cache: false,
-                dataType: 'html',
-                type: "POST"
-            });
             if (acumulador_valor_dados <= 7) {
                 total_avance_arriba = paso_ancho - 14.5;
                 posicion_ficha_arriba = posicion_ficha_arriba + total_avance_arriba;
@@ -292,12 +285,41 @@ function avanzarFicha(valor_dado) {
                     type: "POST"
                 });
                 if (acumulador_valor_dados >= 24) {
-                    acumulador_valor_dados = 0;
-                    posicion_ficha_abajo = 0;
-                    posicion_ficha_arriba = 0;
-                    posicion_ficha_derecha = 0;
-                    posicion_ficha_izquierda = 0;
-                    if (nivel_basico === true && nivel_intermedio === false && nivel_avanzado === false) {
+                    if (nivel_avanzado == true) {
+                        jQuery.ajax({
+                            url: 'admin/controlador/usuario.php',
+                            data: 'acumulador_ficha=24&id_usuario=' + idusuario + '&accion=ActualizarAcumuladorPosicionFicha',
+                            cache: false,
+                            dataType: 'html',
+                            type: "POST",
+                            success: function (data, textStatus, jqXHR) {
+                                Swal.fire({
+                                    title: '¡Felicidades haz completado el juego, te agradecemos por tu participación!',
+                                    width: 600,
+                                    padding: '3em',
+                                    color: '#716add',
+                                    background: '#fff url(img/trees.png)',
+                                    backdrop: `
+    rgba(0,0,123,0.4)
+    url("img/nyan-cat.gif")
+    left top
+    no-repeat
+  `
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.href = "index.php";
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        acumulador_valor_dados = 0;
+                        posicion_ficha_abajo = 0;
+                        posicion_ficha_arriba = 0;
+                        posicion_ficha_derecha = 0;
+                        posicion_ficha_izquierda = 0;
+                    }
+                    if (nivel_basico == true && nivel_intermedio == false && nivel_avanzado == false) {
                         nivel_basico = false;
                         nivel_intermedio = true;
                         nivel = 2;
@@ -306,11 +328,12 @@ function avanzarFicha(valor_dado) {
                             data: 'nivel=2&id_usuario=' + idusuario + '&accion=ActualizarNivel',
                             cache: false,
                             dataType: 'html',
-                            type: "POST"
+                            type: "POST",
+                            success: function (data, textStatus, jqXHR) {
+                                setearValoresJuego();
+                            }
                         });
-
-                        setearValoresJuego();
-                    } else if (nivel_intermedio === true && nivel_basico === false && nivel_avanzado === false) {
+                    } else if (nivel_intermedio == true && nivel_basico == false && nivel_avanzado == false) {
                         nivel_intermedio = false;
                         nivel_avanzado = true;
                         nivel = 3;
@@ -319,13 +342,21 @@ function avanzarFicha(valor_dado) {
                             data: 'nivel=3&id_usuario=' + idusuario + '&accion=ActualizarNivel',
                             cache: false,
                             dataType: 'html',
-                            type: "POST"
+                            type: "POST",
+                            success: function (data, textStatus, jqXHR) {
+                                setearValoresJuego();
+                            }
                         });
-
-                        setearValoresJuego();
                     }
                 }
             }
+            jQuery.ajax({
+                url: 'admin/controlador/usuario.php',
+                data: 'acumulador_ficha=' + acumulador_valor_dados + '&id_usuario=' + idusuario + '&accion=ActualizarAcumuladorPosicionFicha',
+                cache: false,
+                dataType: 'html',
+                type: "POST"
+            });
         }
     } else {
         Swal.fire({
@@ -345,21 +376,23 @@ function avanzarFicha(valor_dado) {
                     data: 'nivel=1&id_usuario=' + idusuario + '&accion=ActualizarNivel',
                     cache: false,
                     dataType: 'html',
-                    type: "POST"
+                    type: "POST",
+                    success: function (data, textStatus, jqXHR) {
+                        jQuery.ajax({
+                            url: 'admin/controlador/usuario.php',
+                            data: 'puntos_totales=100&id_usuario=' + idusuario + '&accion=ActualizarPuntos',
+                            cache: false,
+                            dataType: 'html',
+                            type: "POST",
+                            success: function (data, textStatus, jqXHR) {
+                                nivel = 1;
+                                setearValoresJuego();
+                            }
+                        });
+                    }
                 });
-
-                jQuery.ajax({
-                    url: 'admin/controlador/usuario.php',
-                    data: 'puntos_totales=100&id_usuario=' + idusuario + '&accion=ActualizarPuntos',
-                    cache: false,
-                    dataType: 'html',
-                    type: "POST"
-                });
-
-                setearValoresJuego();
-                location.href = "panaca.php";
             }
-        })
+        });
     }
 }
 
@@ -371,6 +404,9 @@ function setearValoresJuego() {
         dataType: 'html',
         type: "POST",
         success: function (data, textStatus, jqXHR) {
+            if (nivel == 1) {
+                location.href = "panaca.php";
+            }
             if (nivel == 2) {
                 location.href = "auki.php";
             }
@@ -383,18 +419,35 @@ function setearValoresJuego() {
 
 $(document).ready(function () {
     setInterval(function () {
-        ordenMerito()
+        ordenMerito();
     }, 1000);
-    if (puntos_totales > 0) {
+    if (puntos_totales > 0 && acumulador_valor_dados_total < 24) {
         Swal.fire({
             title: 'Bienvenido, usted se encuentra en el nivel ' + nombre_nivel,
             text: '¡Usted cuenta con ' + puntos_totales + ' puntos!',
             confirmButtonText: 'Comenzar a jugar'
         });
         setInterval(function () {
-            countTimer()
+            countTimer();
         }, 1000);
-    } else {
+    } else if (acumulador_valor_dados_total >= 24 && nivel == 3) {
+        Swal.fire({
+            title: '¡Felicidades haz completado el juego, te agradecemos por tu participación!',
+            width: 600,
+            padding: '3em',
+            color: '#716add',
+            background: '#fff url(img/trees.png)',
+            backdrop: `
+    rgba(0,0,123,0.4)
+    url("img/nyan-cat.gif")
+    left top
+    no-repeat  `
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "index.php";
+            }
+        });
+    } else if (puntos_totales == 0) {
         Swal.fire({
             title: '¡Atención!',
             text: 'Usted ya no cuenta con puntos para poder jugar',
@@ -412,22 +465,23 @@ $(document).ready(function () {
                     data: 'nivel=1&id_usuario=' + idusuario + '&accion=ActualizarNivel',
                     cache: false,
                     dataType: 'html',
-                    type: "POST"
+                    type: "POST",
+                    success: function (data, textStatus, jqXHR) {
+                        jQuery.ajax({
+                            url: 'admin/controlador/usuario.php',
+                            data: 'puntos_totales=100&id_usuario=' + idusuario + '&accion=ActualizarPuntos',
+                            cache: false,
+                            dataType: 'html',
+                            type: "POST",
+                            success: function (data, textStatus, jqXHR) {
+                                nivel = 1;
+                                setearValoresJuego();
+                            }
+                        });
+                    }
                 });
-
-
-                jQuery.ajax({
-                    url: 'admin/controlador/usuario.php',
-                    data: 'puntos_totales=100&id_usuario=' + idusuario + '&accion=ActualizarPuntos',
-                    cache: false,
-                    dataType: 'html',
-                    type: "POST"
-                });
-
-                setearValoresJuego();
-                location.href = "panaca.php";
             }
-        })
+        });
     }
 
     //SETEAR POSICION FICHA AL CARGAR PAGINA
@@ -475,7 +529,7 @@ function ordenMerito() {
             data = JSON.parse(data);
             var html = "";
             for (var i = 0; i < data.length; i++) {
-                if (data[i]['id_usuario'] === idusuario) {
+                if (data[i]['id_usuario'] == idusuario) {
                     html = html + '<tr style="font-weight:bold; color:red">\n\
 <td><b style="padding-right: 5px">' + (i + 1) + '°</b></td>\n\
 <td>' + data[i]['nombres'] + ' ' + data[i]['apellidos'] + '</td>\n\
@@ -492,7 +546,7 @@ function ordenMerito() {
             jQuery(".list_om").html(html);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus)
+            console.log(textStatus);
         }
     });
 }

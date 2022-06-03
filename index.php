@@ -105,7 +105,7 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
                                     <!-- Change this to a button or input when using this as a form -->
                                     <input type="submit" class="btn btn-lg btn-success btn-block" value="Iniciar sesión" />
                                     <div class="text-center" style="margin-top: 10px">
-                                        <a href="nuevo-usuario.php" class="text-center">Usuario nuevo, regístrate aquí</a>
+                                        <a href="nuevo-usuario.php" class="btn btn-default btn-block">Usuario nuevo, regístrate aquí</a>
                                     </div>
                                     <?php
                                     echo $msj;

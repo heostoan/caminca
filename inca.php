@@ -102,17 +102,9 @@ if (!isset($_SESSION['usuario_logeado'])) {
             </table>
             <div class="salir_juego" onclick="salir()">Salir del juego</div>
             <div class="cuadro_merito">
-                <b style="text-align: center">RANKING</b>
-                <div>1° Juan 320pts</div>
-                <div>2° Bianka 320pts</div>
-                <div>3° Manuel 320pts</div>
-                <div>4° Fernanda 320pts</div>
-                <div>5° Alonso 320pts</div>
-                <div>6° Antonio 320pts</div>
-                <div>7° Grecia 320pts</div>
-                <div>8° Luis 320pts</div>
-                <div>9° Jaime 320pts</div>
-                <div>10° Oscar 320pts</div>
+                <div style="text-align: center; width: 100%; font-weight: bold; padding-bottom: 5px; border-bottom: 1px solid black; margin-bottom: 3px">RANKING</div>
+                <table class="list_om">
+                </table>
             </div>
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script type="text/javascript" src="index.js"></script>
