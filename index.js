@@ -408,7 +408,7 @@ function setearValoresJuego() {
                 location.href = "panaca.php";
             }
             if (nivel == 2) {
-                location.href = "auki.php";
+                location.href = "auqui.php";
             }
             if (nivel == 3) {
                 location.href = "inca.php";

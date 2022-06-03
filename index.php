@@ -64,7 +64,7 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="../favicon.ico" />
 
-        <title>Entra y juega</title>
+        <title>CAMINO MATEMÁTICO DEL INCA</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="admin/css/bootstrap.css" rel="stylesheet">
@@ -85,13 +85,13 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>
+    <body style="background-image: url(img/FonfoInicio.png); background-size: 100%; background-attachment: fixed">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-md-offset-4">
+                <div class="col-md-4 col-md-offset-4" style="margin-top:10%">
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading text-center">
-                            <h1 class="panel-title">Bienvenido, ingresa y juega</h1>
+                            <h1 class="panel-title">BIENVENIDO</h1>
                         </div>
                         <div class="panel-body">
                             <form role="form" method="post" action="index.php">

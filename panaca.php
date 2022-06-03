@@ -60,16 +60,8 @@ if (!isset($_SESSION['usuario_logeado'])) {
                 <tr>
                     <td class="crema efecto"><div><span>23</span></div></td>
                     <td colspan="5" rowspan="5">
-                        <div class="fd_centro">    
-                            <div style="text-align: right">
-                                <img src="img/Kuzco.png" style="margin-top: 50%; margin-right: 3%" width="50%"/>
-                            </div>
-                            <div style="text-align: center">
-                                <div onclick="jugar()" class="btn_jugar">Jugar</div>
-                            </div>
-                            <div style="text-align: left">
-                                <img src="" class="cara" style="margin-top: 75%; margin-left: 8%" width="50%"/>
-                            </div>
+                        <div style="background-image: url(img/FondoNivel01.png); width: 100%; min-height: 670px; position: relative">
+                            <div onclick="jugar()" class="btn_jugar"></div>
                         </div>
                     </td>
                     <td class="crema efecto"><div><span>7</span></div></td>
@@ -102,7 +94,7 @@ if (!isset($_SESSION['usuario_logeado'])) {
             </table>
             <div class="salir_juego" onclick="salir()">Salir del juego</div>
             <div class="cuadro_merito">
-                <div style="text-align: center; width: 100%; font-weight: bold; padding-bottom: 5px; border-bottom: 1px solid black; margin-bottom: 3px">RANKING</div>
+                <div style="text-align: center; width: 100%; font-weight: bold; padding-bottom: 5px; border-bottom: 1px solid black; margin-bottom: 3px">RANKING PANACA</div>
                 <table class="list_om">
                 </table>
             </div>

@@ -27,7 +27,7 @@ if (!isset($_SESSION['usuario_logeado'])) {
     <html>
         <head>
             <meta charset="UTF-8">
-            <title>NIVEL AUKI</title>
+            <title>NIVEL AUQUI</title>
             <link rel="stylesheet" href="index.css"/>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         </head>
@@ -61,17 +61,8 @@ if (!isset($_SESSION['usuario_logeado'])) {
                 <tr>
                     <td class="crema efecto"><div><span>23</span></div></td>
                     <td colspan="5" rowspan="5">
-                        <div class="fd_centro">    
-                            <div style="text-align: right">
-                                <img src="img/Kuzco.png" style="margin-top: 50%; margin-right: 3%" width="50%"/>
-                            </div>
-                            <div style="text-align: center">
-                                <!--<div class="jugar" onclick="avanzar()"></div>-->
-                                <div onclick="jugar()" class="btn_jugar">Jugar</div>
-                            </div>
-                            <div style="text-align: left">
-                                <img src="" class="cara" style="margin-top: 75%; margin-left: 8%" width="50%"/>
-                            </div>
+                        <div style="background-image: url(img/FondoNivel02.png); width: 100%; min-height: 670px; position: relative">
+                            <div onclick="jugar()" class="btn_jugar"></div>
                         </div>
                     </td>
                     <td class="crema efecto"><div><span>7</span></div></td>
@@ -100,12 +91,11 @@ if (!isset($_SESSION['usuario_logeado'])) {
                     <td class="ladrillo efecto"><div><span>14</span></div></td>
                     <td class="petroleo efecto"><div><span>13</span></div></td>
                     <td class="naranja efecto"><div><span>12</span></div></td>
-                    <!--<td class="mostasa efecto"><div><span>11</span></div></td>-->
                 </tr>
             </table>
             <div class="salir_juego" onclick="salir()">Salir del juego</div>
             <div class="cuadro_merito">
-                <div style="text-align: center; width: 100%; font-weight: bold; padding-bottom: 5px; border-bottom: 1px solid black; margin-bottom: 3px">RANKING</div>
+                <div style="text-align: center; width: 100%; font-weight: bold; padding-bottom: 5px; border-bottom: 1px solid black; margin-bottom: 3px">RANKING AUQUI</div>
                 <table class="list_om">
                 </table>
             </div>
