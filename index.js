@@ -29,6 +29,12 @@ var posicion_ficha_izquierda = parseInt($(".posicion_ficha_izquierda").val());
 var data = [];
 var totalSeconds = 0;
 
+function disableF5(e) {
+    if ((e.which || e.keyCode) == 116) {
+        e.preventDefault();
+    }
+}
+
 function readTextFile(file, callback) {
     var rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("application/json");
@@ -417,10 +423,47 @@ function setearValoresJuego() {
     });
 }
 
+function ordenMerito() {
+    //LISTAR ORDEN MERITO AUTOMATICO
+    jQuery.ajax({
+        url: 'admin/controlador/usuario.php',
+        data: 'nivel=' + nivel + '&id_usuario=' + idusuario + '&puntaje=' + puntos_totales + '&accion=ActualizarOrdenMerito',
+        cache: false,
+        dataType: 'html',
+        type: "POST",
+        success: function (data, textStatus, jqXHR) {
+            data = JSON.parse(data);
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                if (data[i]['id_usuario'] == idusuario) {
+                    html = html + '<tr style="font-weight:bold; color:red">\n\
+<td><b style="padding-right: 5px">' + (i + 1) + '°</b></td>\n\
+<td>' + data[i]['nombres'] + ' ' + data[i]['apellidos'] + '</td>\n\
+<td><b style="padding-left: 5px">' + data[i]['puntaje'] + 'pts</b></td>\n\
+</tr>';
+                } else {
+                    html = html + '<tr>\n\
+<td><b style="padding-right: 5px">' + (i + 1) + '°</b></td>\n\
+<td>' + data[i]['nombres'] + ' ' + data[i]['apellidos'] + '</td>\n\
+<td><b style="padding-left: 5px">' + data[i]['puntaje'] + 'pts</b></td>\n\
+</tr>';
+                }
+            }
+            jQuery(".list_om").html(html);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+        }
+    });
+}
+
 $(document).ready(function () {
+    jQuery(document).on("keydown", disableF5);
+
     setInterval(function () {
         ordenMerito();
     }, 1000);
+
     if (puntos_totales > 0 && acumulador_valor_dados_total < 24) {
         Swal.fire({
             title: 'Bienvenido, usted se encuentra en el nivel ' + nombre_nivel,
@@ -516,37 +559,3 @@ $(document).ready(function () {
     }
 
 });
-
-function ordenMerito() {
-    //LISTAR ORDEN MERITO AUTOMATICO
-    jQuery.ajax({
-        url: 'admin/controlador/usuario.php',
-        data: 'nivel=' + nivel + '&id_usuario=' + idusuario + '&puntaje=' + puntos_totales + '&accion=ActualizarOrdenMerito',
-        cache: false,
-        dataType: 'html',
-        type: "POST",
-        success: function (data, textStatus, jqXHR) {
-            data = JSON.parse(data);
-            var html = "";
-            for (var i = 0; i < data.length; i++) {
-                if (data[i]['id_usuario'] == idusuario) {
-                    html = html + '<tr style="font-weight:bold; color:red">\n\
-<td><b style="padding-right: 5px">' + (i + 1) + '°</b></td>\n\
-<td>' + data[i]['nombres'] + ' ' + data[i]['apellidos'] + '</td>\n\
-<td><b style="padding-left: 5px">' + data[i]['puntaje'] + 'pts</b></td>\n\
-</tr>';
-                } else {
-                    html = html + '<tr>\n\
-<td><b style="padding-right: 5px">' + (i + 1) + '°</b></td>\n\
-<td>' + data[i]['nombres'] + ' ' + data[i]['apellidos'] + '</td>\n\
-<td><b style="padding-left: 5px">' + data[i]['puntaje'] + 'pts</b></td>\n\
-</tr>';
-                }
-            }
-            jQuery(".list_om").html(html);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
-        }
-    });
-}
