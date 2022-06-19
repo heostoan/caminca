@@ -16,7 +16,7 @@ if (!isset($_SESSION['usuario_logeado'])) {
         $posicion_ficha_arriba = $value['posicion_ficha_arriba'];
         $posicion_ficha_derecha = $value['posicion_ficha_derecha'];
         if ($nivel == 2) {
-            header("refresh:0;url=auki.php");
+            header("refresh:0;url=auqui.php");
         }
         if ($nivel == 3) {
             header("refresh:0;url=inca.php");

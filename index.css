@@ -2,6 +2,9 @@
     padding: 0;
     margin: 0;
 }
+a{
+    text-decoration: none !important
+}
 body{
     background-image: url(img/pasto.png);
     background-repeat: repeat;
@@ -15,7 +18,7 @@ body{
     margin: 2.5%;
     width: 100%;
     height: 350px
-    /*min-height: 53vh;*/
+        /*min-height: 53vh;*/
 }
 .fd_centro > div{
     width: 33%;
@@ -184,4 +187,7 @@ td div span{
     bottom: 0;
     background: white;
     padding: 10px 10px;
+}
+.swal2-input-label{
+    padding: 1em 2em 3px;
 }

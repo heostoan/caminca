@@ -13,9 +13,8 @@ if ($objDatos == null) {
 
 if ($cAccion == 'registrarUsuario') {
     try {
-        $usuario = array($_POST['nombres'], $_POST['apellidos'], $_POST['edad'], $_POST['celular'], $_POST['usuario'], $_POST['clave']);
+        $usuario = array($_POST['nombres'], $_POST['apellidos'], $_POST['edad'], $_POST['celular'], $_POST['usuario'], $_POST['clave'], $_POST['fecha_nacimiento'], $_POST['sexo'], $_POST['nivel_estudios'], $_POST['tipo_colegio'], $_POST['correo']);
         $Resultado = $objUsuario->Set_Usuario($usuario);
-        $objUsuario->Set_Estatus();
         $objUsuario->beginTransaction();
         echo $Resultado;
     } catch (Exception $e) {
@@ -194,6 +193,20 @@ if ($cAccion == 'RestablecerPosicionJuego') {
 
 if ($cAccion == 'ActualizarOrdenMerito') {
     $Resultado = $objUsuario->Get_Orden_Merito($_POST['id_usuario'], $_POST['nivel'], $_POST['puntaje']);
+    $objUsuario->beginTransaction();
+    echo json_encode($Resultado);
+}
+
+if ($cAccion == 'recuperarUsuario') {
+    $usuario = array($_POST['celular'], $_POST['correo']);
+    $Resultado = $objUsuario->Get_Recuperar_Credenciales($usuario);
+    $objUsuario->beginTransaction();
+    echo json_encode($Resultado);
+}
+
+if ($cAccion == 'cambiarClave') {
+    $usuario = array($_POST['correo'], $_POST['usuario'], $_POST['clave']);
+    $Resultado = $objUsuario->Upd_Clave_Usuario($usuario);
     $objUsuario->beginTransaction();
     echo json_encode($Resultado);
 }

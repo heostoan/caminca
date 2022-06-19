@@ -90,15 +90,24 @@ UNION
     }
 
     function Set_Usuario($usuario) {
-        $this->query = "insert into usuario(nombres,apellidos,edad,celular,usuario,clave,tipo_usuario,estado) values ('$usuario[0]','$usuario[1]','$usuario[2]','$usuario[3]','$usuario[4]',md5('$usuario[5]'),2,1)";
-        $this->execute_single_query();
-        return json_encode('Registro realizado correctamente');
+        $this->query = "SELECT count(*) as cnt FROM usuario WHERE usuario='$usuario[4]' or correo='$usuario[10]';";
+        $this->execute_query();
+        $data = $this->rows;
+
+        if ($data[0]['cnt'] == 0) {
+            $this->query = "insert into usuario(nombres,apellidos,edad,celular,usuario,clave,tipo_usuario,estado,fecha_nacimiento,sexo,nivel_estudios,tipo_colegio,correo,fecha_registro) values ('$usuario[0]','$usuario[1]','$usuario[2]','$usuario[3]','$usuario[4]',md5('$usuario[5]'),2,1,'$usuario[6]','$usuario[7]','$usuario[8]','$usuario[9]','$usuario[10]',now())";
+            $this->execute_single_query();
+            $this->Set_Estatus();
+            return json_encode('Registro de usuario realizado correctamente');
+        } else {
+            return json_encode('Existen ' . $data[0]['cnt'] . ' coincidencia(s) participando, por favor pruebe con otro usuario o correo electronico');
+        }
     }
 
     function Set_Estatus() {
         $this->query = "insert into estatus(id_usuario,nivel,puntaje,tiempo_nivel1,tiempo_nivel2,tiempo_nivel3,repeticion_nivel1,repeticion_nivel2,repeticion_nivel3,posicion_ficha_abajo,posicion_ficha_arriba,posicion_ficha_derecha,posicion_ficha_izquierda,acumulador_ficha) values ((select max(idusuario) from usuario),1,100,'00:00:00','00:00:00','00:00:00',0,0,0,0,0,0,0,0)";
         $this->execute_single_query();
-        return json_encode('Registro realizado correctamente');
+        return json_encode('Registro el estatus realizado correctamente');
     }
 
     function Get_Estatus_By_Usuario($persona) {
@@ -190,6 +199,31 @@ UNION
         $this->query = "update estatus set acumulador_ficha='$usuario[0]',posicion_ficha_izquierda='$usuario[1]',posicion_ficha_derecha='$usuario[2]',posicion_ficha_arriba='$usuario[3]',posicion_ficha_abajo='$usuario[4]' where id_usuario='$usuario[5]'";
         $this->execute_single_query();
         return json_encode('Actualización de datos');
+    }
+
+    function Get_Recuperar_Credenciales($usuario) {
+        $this->query = "SELECT usuario,md5(clave) as clave from usuario where celular='$usuario[0]' and correo='$usuario[1]';";
+        $this->execute_query();
+        $data = $this->rows;
+        if (count($data) > 0) {
+            return json_encode('Su usuario es: ' . $data[0]['usuario'] . ', proceda a recuperar su clave con la opcion cambio de credenciales');
+        } else {
+            return json_encode('No existe usuario con los datos ingresados.');
+        }
+    }
+
+    function Upd_Clave_Usuario($usuario) {
+        $this->query = "SELECT count(*) as cnt FROM usuario WHERE usuario='$usuario[1]' and correo='$usuario[0]';";
+        $this->execute_query();
+        $data = $this->rows;
+
+        if ($data[0]['cnt'] > 0) {
+            $this->query = "update usuario set clave=md5('$usuario[2]') where usuario='$usuario[1]'";
+            $this->execute_single_query();
+            return json_encode('Actualizacion de credenciales correcta, por favor inicie su sesion y comienze a jugar');
+        } else {
+            return json_encode('No se ejecuto la solicitud el usuario o correo no existe');
+        }
     }
 
 }

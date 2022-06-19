@@ -44,7 +44,7 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
             if ($valueEstatus['nivel'] == 1) {
                 header("refresh:0;url=panaca.php");
             } else if ($valueEstatus['nivel'] == 2) {
-                header("refresh:0;url=auki.php");
+                header("refresh:0;url=auqui.php");
             } else if ($valueEstatus['nivel'] == 3) {
                 header("refresh:0;url=inca.php");
             }
@@ -105,7 +105,9 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
                                     <!-- Change this to a button or input when using this as a form -->
                                     <input type="submit" class="btn btn-lg btn-success btn-block" value="Iniciar sesión" />
                                     <div class="text-center" style="margin-top: 10px">
-                                        <a href="nuevo-usuario.php" class="btn btn-default btn-block">Usuario nuevo, regístrate aquí</a>
+                                        <a href="cambiar-clave.php" class="btn btn-default btn-block">Cambio de credenciales</a>
+                                        <a href="recuperar-clave.php" class="btn btn-info btn-block">Recuperar credenciales</a>
+                                        <a href="nuevo-usuario.php" class="btn btn-primary btn-block">¿Usuario nuevo? regístrate aquí</a>
                                     </div>
                                     <?php
                                     echo $msj;

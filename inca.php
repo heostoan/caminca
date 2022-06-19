@@ -19,7 +19,7 @@ if (!isset($_SESSION['usuario_logeado'])) {
             header("refresh:0;url=panaca.php");
         }
         if ($nivel == 2) {
-            header("refresh:0;url=auki.php");
+            header("refresh:0;url=auqui.php");
         }
     }
     ?>

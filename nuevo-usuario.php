@@ -42,30 +42,67 @@
                                         <div class="col-lg-6">
                                             <!--<input class="idproducto" type="hidden" value="<?php echo $idproducto; ?>" />-->
                                             <div class="form-group">
-                                                <label>1. Nombres</label>
-                                                <input value="<?php // echo $nombre_menu;     ?>" required="" class="form-control nombres">
+                                                <label>1. Nombres*</label>
+                                                <input value="<?php // echo $nombre_menu;      ?>" required="" class="form-control nombres">
                                             </div>
                                             <div class="form-group">
-                                                <label>2. Apellidos</label>
-                                                <input value="<?php // echo $titulo_pagina;     ?>" required="" class="form-control apellidos">
+                                                <label>2. Apellidos*</label>
+                                                <input value="<?php // echo $titulo_pagina;      ?>" required="" class="form-control apellidos">
                                             </div>
                                             <div class="form-group">
-                                                <label>3. Edad</label>
-                                                <input value="<?php // echo $tamanho;     ?>" required="" class="form-control edad">
+                                                <label>3. Edad*</label>
+                                                <input type="text" readonly="" class="form-control edad ">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>4. Celular*</label>
+                                                <input value="<?php // echo $peso;      ?>" required="" class="form-control celular"  onkeypress="return soloNumeros(event)" maxlength="9" onkeyup="limpiarNumero(this); primer9(this)" onchange="limpiarNumero(this)">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>5. Correo electrónico*</label>
+                                                <input required="" class="form-control correo">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>6. Fecha de nacimiento*</label>
+                                                <input type="date" required="" class="form-control fecha_nacimiento">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>4. Celular</label>
-                                                <input value="<?php // echo $peso;     ?>" required="" class="form-control celular">
+                                                <label>7. Sexo*</label>
+                                                <select class="form-control sexo">
+                                                    <option value="" selected="">Seleccione</option>
+                                                    <option value="m">Maculino</option>
+                                                    <option value="f">Femenino</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
-                                                <label>5. Usuario</label>
-                                                <input value="<?php // echo $previene;     ?>" required="" class="form-control usuario">
+                                                <label>8. Nivel de estudios*</label>
+                                                <select class="form-control nivel_estudios">
+                                                    <option value="" selected="">Seleccione</option>
+                                                    <option value="p">Primaria</option>
+                                                    <option value="s">Secundaria</option>
+                                                    <option value="u">Universitaria</option>
+                                                    <option value="o">Otro</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
-                                                <label>6. Clave</label>
-                                                <input type="password" value="<?php // echo $previene;     ?>" required="" class="form-control clave">
+                                                <label>9. Tipo de colegio*</label>
+                                                <select class="form-control tipo_colegio">
+                                                    <option value="" selected="">Seleccione</option>
+                                                    <option value="pb">Público</option>
+                                                    <option value="pv">Particular</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>10. Usuario*</label>
+                                                <input value="<?php // echo $previene;      ?>" required="" class="form-control usuario"  onkeypress="return soloLetrasYNumeros(event)">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>11. Clave*</label>
+                                                <input type="password" value="<?php // echo $previene;      ?>" required="" class="form-control clave">
+                                            </div>
+                                            <div class="">
+                                                (*) Campos obligatorios
                                             </div>
                                         </div>
                                         <div class="col-md-12 text-center">
@@ -100,6 +137,7 @@
         <!--<script src="js/startmin.js"></script>-->
 
         <script src="admin/js/General.js"></script>
+        <script src="admin/js/util.js"></script>
         <script src="admin/js/sweetalert.min.js"></script>
         <script src="admin/js/actions.js"></script>
     </body>
