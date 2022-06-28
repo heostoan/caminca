@@ -1,0 +1,193 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration: none !important
+}
+body{
+    background-image: url(img/pasto.png);
+    background-repeat: repeat;
+    padding: 30px
+}
+.fd_centro{
+    background-image: url(img/titulos.png);
+    background-position: center center;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    margin: 2.5%;
+    width: 100%;
+    height: 350px
+        /*min-height: 53vh;*/
+}
+.fd_centro > div{
+    width: 33%;
+    display: inline-block;
+    vertical-align: bottom;
+    margin: 0 -5px;
+}
+.amarillo{
+    background: yellow;
+}
+.area_juego{
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    height: 600px;
+    width: 1200px;
+    position: relative
+}
+.ficha{
+    border-radius: 50px;
+    /*background: green;*/
+    width: 75px;
+    height: 75px;
+    /*border: 5px solid purple;*/
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    z-index: 10
+}
+.area_ficha{
+    text-align: center;
+    width: 105px;
+    height: 105px;
+    position: absolute;
+    border: 15px solid transparent;
+}
+.paso, .tablero td{
+    width: 120px;
+    height: 120px;
+    border: 15px solid #847539;
+    margin: -1px -1px;
+    font-weight: bold;
+    font-size: 60px;
+}
+td div{
+    width: 120px;
+    height: 120px;
+    position: relative
+}
+td div span{
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+.horizontal{
+    float: left
+}
+.jugar{
+    color: white;
+    padding: 10px 10px;
+    display: inline-block;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 120px;
+    height: 120px;
+    background-image: url(img/dice.gif);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    margin-top: 61%
+}
+.efecto{
+    transition-duration:450ms;
+    transition-property:all;
+    transition-timing-function:cubic-bezier(.7,1,.7,1)
+}
+.tablero{
+    border-collapse: collapse;
+    margin: 0 auto;
+    position: relative;
+    left: 0;
+    right: 0;
+    width: 960px;
+    height: 960px
+}
+
+.ladrillo{
+    background: #DD5603;
+}
+.petroleo{
+    background: #ABB400;
+}
+.mostasa{
+    background: #F0AC01;
+}
+.crema{
+    background: #C1BB93;
+}
+.naranja{
+    background: #E8800C;
+}
+
+.ladrillo_i{
+    background: #DD5603;
+}
+.petroleo_i{
+    background: #C1BB93;
+}
+.mostasa_i{
+    background: #F0AC01;
+}
+.crema_i{
+    background: #ABB400;
+}
+.naranja_i{
+    background: #E8800C;
+}
+
+.ladrillo_a{
+    background: #ABB400;
+}
+.petroleo_a{
+    background: #F0AC01;
+}
+.mostasa_a{
+    background: #C1BB93;
+}
+.crema_a{
+    background: #E8800C;
+}
+.naranja_a{
+    background: #DD5603;
+}
+.msg{
+    width: 100%;
+    font-size: 20px;
+}
+.btn_jugar{
+    position: relative;
+    top: 265px;
+    margin: 0 auto;
+    background-image: url(img/BotonJugar.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 130px;
+    width: 130px;
+    cursor: pointer;
+}
+.salir_juego{
+    background: red;
+    color: white;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+.cuadro_merito{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background: white;
+    padding: 10px 10px;
+}
+.swal2-input-label{
+    padding: 1em 2em 3px;
+}
