@@ -5,17 +5,25 @@ var nombre_nivel = "";
 var nivel_basico = false;
 var nivel_intermedio = false;
 var nivel_avanzado = false;
+var puntos_ganados = 50;
+var puntos_perdidos = 20;
 if (nivel == 1) {
     nombre_nivel = "Básico";
     nivel_basico = true;
+    puntos_ganados = 50;
+    puntos_perdidos = 20;
 }
 if (nivel == 2) {
     nombre_nivel = "Intermedio";
     nivel_intermedio = true;
+    puntos_ganados = 75;
+    puntos_perdidos = 40;
 }
 if (nivel == 3) {
     nombre_nivel = "Avanzado";
     nivel_avanzado = true;
+    puntos_ganados = 100;
+    puntos_perdidos = 60;
 }
 var valor_dado = 2;
 var paso_ancho = $(".paso").outerWidth();
@@ -781,6 +789,9 @@ function ordenMerito() {
 }
 
 $(document).ready(function () {
+    puntos_ganados = 50;
+    puntos_perdidos = 20;
+
     jQuery(document).on("keydown", disableF5);
 
     setInterval(function () {
@@ -874,11 +885,15 @@ $(document).ready(function () {
     if (nivel == 2) {
         nivel_basico = false;
         nivel_intermedio = true;
+        puntos_ganados = 75;
+        puntos_perdidos = 40;
     }
 
     if (nivel == 3) {
         nivel_intermedio = false;
         nivel_avanzado = true;
+        puntos_ganados = 100;
+        puntos_perdidos = 60;
     }
 
 });

@@ -13,7 +13,7 @@
 
     <!-- Top Navigation: Left Menu -->
     <ul class="nav navbar-nav navbar-left navbar-top-links">
-        <li><a href="/"><i class="fa fa-home fa-fw"></i> Ir al juego</a></li>
+        <li><a href="/caminca"><i class="fa fa-home fa-fw"></i> Ir al juego</a></li>
     </ul>
 
     <!-- Top Navigation: Right Menu -->
@@ -34,11 +34,28 @@
         <div class="sidebar-nav navbar-collapse">
 
             <ul class="nav" id="side-menu">
-                <li>
+                <!--<li>
                     <a href="principal.php"><i class="fa fa-sitemap fa-fw"></i> Contenidos<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="usuarios.php"><i class="fa fa-table fa-fw"></i> Usuario</a>
+                        </li>
+                    </ul>
+                </li>-->
+                <li>
+                    <a href="principal.php"><i class="fa fa-copy fa-fw"></i> Reportes<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="reporte1.php"><i class="fa fa-table fa-fw"></i> Todos los niveles</a>
+                        </li>
+                        <li>
+                            <a href="reporte2.php"><i class="fa fa-table fa-fw"></i> Usuarios PANACA</a>
+                        </li>
+                        <li>
+                            <a href="reporte3.php"><i class="fa fa-table fa-fw"></i> Usuarios AUQUI</a>
+                        </li>
+                        <li>
+                            <a href="reporte4.php"><i class="fa fa-table fa-fw"></i> Usuarios INCA</a>
                         </li>
                     </ul>
                 </li>

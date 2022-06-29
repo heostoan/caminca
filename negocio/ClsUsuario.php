@@ -38,6 +38,237 @@ usuario
         return $data;
     }
 
+    function Get_Reporte_Usuarios() {
+        $this->query = "SELECT
+estatus.id_estatus,
+estatus.id_usuario,
+estatus.nivel,
+estatus.puntaje,
+estatus.tiempo_nivel1,
+estatus.tiempo_nivel2,
+estatus.tiempo_nivel3,
+estatus.repeticion_nivel1,
+estatus.repeticion_nivel2,
+estatus.repeticion_nivel3,
+estatus.posicion_ficha_abajo,
+estatus.posicion_ficha_arriba,
+estatus.posicion_ficha_derecha,
+estatus.posicion_ficha_izquierda,
+estatus.acumulador_ficha,
+usuario.idusuario,
+usuario.nombres,
+usuario.apellidos,
+usuario.edad,
+usuario.celular,
+usuario.usuario,
+usuario.clave,
+usuario.tipo_usuario,
+usuario.estado
+FROM
+estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario
+where usuario.tipo_usuario!=1;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Get_Reporte_Usuarios_Panaka() {
+        $this->query = "SELECT
+estatus.id_estatus,
+estatus.id_usuario,
+estatus.nivel,
+estatus.puntaje,
+estatus.tiempo_nivel1,
+estatus.tiempo_nivel2,
+estatus.tiempo_nivel3,
+estatus.repeticion_nivel1,
+estatus.repeticion_nivel2,
+estatus.repeticion_nivel3,
+estatus.posicion_ficha_abajo,
+estatus.posicion_ficha_arriba,
+estatus.posicion_ficha_derecha,
+estatus.posicion_ficha_izquierda,
+estatus.acumulador_ficha,
+usuario.idusuario,
+usuario.nombres,
+usuario.apellidos,
+usuario.edad,
+usuario.celular,
+usuario.usuario,
+usuario.clave,
+usuario.tipo_usuario,
+usuario.estado
+FROM
+estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario
+where usuario.tipo_usuario!=1 and estatus.nivel=1;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Get_Reporte_Usuarios_Auqui() {
+        $this->query = "SELECT
+estatus.id_estatus,
+estatus.id_usuario,
+estatus.nivel,
+estatus.puntaje,
+estatus.tiempo_nivel1,
+estatus.tiempo_nivel2,
+estatus.tiempo_nivel3,
+estatus.repeticion_nivel1,
+estatus.repeticion_nivel2,
+estatus.repeticion_nivel3,
+estatus.posicion_ficha_abajo,
+estatus.posicion_ficha_arriba,
+estatus.posicion_ficha_derecha,
+estatus.posicion_ficha_izquierda,
+estatus.acumulador_ficha,
+usuario.idusuario,
+usuario.nombres,
+usuario.apellidos,
+usuario.edad,
+usuario.celular,
+usuario.usuario,
+usuario.clave,
+usuario.tipo_usuario,
+usuario.estado
+FROM
+estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario
+where usuario.tipo_usuario!=1 and estatus.nivel=2;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Get_Reporte_Usuarios_Inca() {
+        $this->query = "SELECT
+estatus.id_estatus,
+estatus.id_usuario,
+estatus.nivel,
+estatus.puntaje,
+estatus.tiempo_nivel1,
+estatus.tiempo_nivel2,
+estatus.tiempo_nivel3,
+estatus.repeticion_nivel1,
+estatus.repeticion_nivel2,
+estatus.repeticion_nivel3,
+estatus.posicion_ficha_abajo,
+estatus.posicion_ficha_arriba,
+estatus.posicion_ficha_derecha,
+estatus.posicion_ficha_izquierda,
+estatus.acumulador_ficha,
+usuario.idusuario,
+usuario.nombres,
+usuario.apellidos,
+usuario.edad,
+usuario.celular,
+usuario.usuario,
+usuario.clave,
+usuario.tipo_usuario,
+usuario.estado
+FROM
+estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario
+where usuario.tipo_usuario!=1 and estatus.nivel=3;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Get_Grap_Nivel_Usuarios() {
+        $this->query = "select count(*) as total, case when nivel='1' THEN 'Panaka' WHEN nivel='2' then 'Auqui' else 'Inca' end as nivel from estatus GROUP BY nivel;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Get_Grap_Edad_Usuarios() {
+        $this->query = "select count(*) as total, usuario.edad FROM
+estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario 
+GROUP BY usuario.edad;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Get_Grap_Sexo_Usuarios() {
+        $this->query = "select count(*) as total, usuario.sexo FROM
+estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario 
+GROUP BY usuario.sexo;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Get_Grap_TipoColegio_Usuarios() {
+        $this->query = "select count(*) as total, usuario.tipo_colegio FROM
+estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario 
+GROUP BY usuario.tipo_colegio;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Get_Grap_NivlEstudios_Usuarios() {
+        $this->query = "select count(*) as total, usuario.nivel_estudios FROM
+estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario 
+GROUP BY usuario.nivel_estudios;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Get_Grap_Nivel_Edad($nivel) {
+        $this->query = "select count(*) as total, usuario.edad FROM
+estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario 
+where estatus.nivel='$nivel'
+GROUP BY usuario.edad;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Get_Grap_Nivel_Sexo($nivel) {
+        $this->query = "select count(*) as total, usuario.sexo FROM
+estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario 
+where estatus.nivel='$nivel'
+GROUP BY usuario.sexo;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Get_Grap_Nivel_TipoColegio($nivel) {
+        $this->query = "select count(*) as total, usuario.tipo_colegio FROM
+estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario 
+where estatus.nivel='$nivel'
+GROUP BY usuario.tipo_colegio;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
+    function Get_Grap_Nivel_NivlEstudios($nivel) {
+        $this->query = "select count(*) as total, usuario.nivel_estudios FROM
+estatus
+INNER JOIN usuario ON usuario.idusuario = estatus.id_usuario 
+where estatus.nivel='$nivel'
+GROUP BY usuario.nivel_estudios;";
+        $this->execute_query();
+        $data = $this->rows;
+        return $data;
+    }
+
     function Get_Orden_Merito($usuario, $nivel, $puntaje) {
         $this->query = "SELECT
 	estatus.id_usuario,
