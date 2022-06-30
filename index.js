@@ -135,7 +135,7 @@ function jugar() {
                                         position: 'top-end',
                                         icon: 'info',
                                         title: 'Aviso',
-                                        text: 'Ganaste 50 puntos y ya cuentas con ' + puntos_totales + ' puntos.',
+                                        text: 'Ganaste ' + puntos_ganados + ' puntos y ya cuentas con ' + puntos_totales + ' puntos.',
                                         showConfirmButton: false,
                                         timer: 1800
                                     });
@@ -163,7 +163,7 @@ function jugar() {
                                         position: 'top-end',
                                         icon: 'info',
                                         title: 'Aviso',
-                                        text: 'Perdiste 20 puntos, ahora tiene ' + puntos_totales + ' puntos.',
+                                        text: 'Perdiste ' + puntos_perdidos + ' puntos, ahora tiene ' + puntos_totales + ' puntos.',
                                         showConfirmButton: false,
                                         timer: 1800
                                     });
