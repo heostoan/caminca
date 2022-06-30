@@ -125,7 +125,7 @@ function jugar() {
                         if (result.isConfirmed) {
                             var rpta = result.value;
                             if (respuesta_correta == rpta) {
-                                puntos_totales = puntos_totales + 50;
+                                puntos_totales = puntos_totales + puntos_ganados;
                                 Swal.fire({
                                     icon: 'success',
                                     title: '¡May Bien!',
@@ -153,7 +153,7 @@ function jugar() {
                                     avanzarFicha(1);
                                 }
                             } else {
-                                puntos_totales = puntos_totales - 20;
+                                puntos_totales = puntos_totales - puntos_perdidos;
                                 Swal.fire({
                                     icon: 'error',
                                     title: '¡Ay!',
