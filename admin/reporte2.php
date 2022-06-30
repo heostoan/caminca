@@ -175,7 +175,7 @@ if (!isset($_SESSION['usuario_logeado'])) {
                     ]);
 
                     var options = {
-                        title: 'Participantes por nivel',
+                        title: 'Participantes por edad',
                         is3D: true,
                     };
 
@@ -203,7 +203,7 @@ if (!isset($_SESSION['usuario_logeado'])) {
                     ]);
 
                     var options = {
-                        title: 'Participantes por nivel',
+                        title: 'Participantes por sexo',
                         is3D: true,
                     };
 
@@ -231,7 +231,7 @@ if (!isset($_SESSION['usuario_logeado'])) {
                     ]);
 
                     var options = {
-                        title: 'Participantes por nivel',
+                        title: 'Participantes por tipo de colegio',
                         is3D: true,
                     };
 
@@ -259,7 +259,7 @@ if (!isset($_SESSION['usuario_logeado'])) {
                     ]);
 
                     var options = {
-                        title: 'Participantes por nivel',
+                        title: 'Participantes por nivel de estudios',
                         is3D: true,
                     };
 
